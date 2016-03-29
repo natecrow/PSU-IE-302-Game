@@ -7,6 +7,15 @@ public class Product {
 	private String description;
 	private float IRR;
 	private float MARR;
+
+
+	public Product(String pName, String pCo, String pDesc, float irr, float marr) {
+		this.name = pName;
+		this.company = pCo;
+		this.description = pDesc;
+		this.IRR = irr;
+		this.MARR = marr;
+	}
 	
 	public String getName() {
 		return this.name;
