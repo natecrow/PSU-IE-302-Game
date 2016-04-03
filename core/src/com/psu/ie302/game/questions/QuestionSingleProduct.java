@@ -1,14 +1,13 @@
-package com.psu.ie302.game;
+package com.psu.ie302.game.questions;
+
+import com.psu.ie302.game.Product;
 
 /*
  * Question for deciding to invest in one product or not
  */
-public class QuestionSingleProduct {
-
-	private String questionPrompt;
-	//private String[] possibleAnswers;
-	private String correctAnswer;	// either Yes or No
-	private Product product;
+public class QuestionSingleProduct extends Question {
+	
+	protected Product product;
 	
 	
 	public QuestionSingleProduct(Product prod) {
@@ -19,16 +18,9 @@ public class QuestionSingleProduct {
 		this.setCorrectAnswer();
 	}
 	
-	// returns true if player's answer is correct; false otherwise
-	public boolean checkAnswer(String ans) {
-		return (ans.equals(this.correctAnswer));
-	}
+	//protected String getQuestionPrompt();
 	
-	public String getQuestionPrompt() {
-		return this.questionPrompt;
-	}
-	
-	private void setQuestionPrompt() {
+	public void setQuestionPrompt() {
 		this.questionPrompt = "Check out the following product and "
 				+ "decide whether you want to invest in it or not (Y/N).\n"
 				+ "\tProduct name: " + this.product.getName() + "\n"
@@ -39,17 +31,17 @@ public class QuestionSingleProduct {
 				+ "Do you want to invest in this product? Type 'Y' or 'N'.\n";
 	}
 	
-	public String getCorrectAnswer() {
-		return this.correctAnswer;
-	}
+	//public void getCorrectAnswer();
 	
-	private void setCorrectAnswer() {
+	public void setCorrectAnswer() {
 		if (this.product.getIRR() >= this.product.getMARR()) {
 			this.correctAnswer = "Y";
 		} else {
 			this.correctAnswer = "N";
 		}
 	}
+	
+	//public boolean checkAnswer(String ans);
 	
 	/*
 	public Product getQuestionProduct() {

@@ -8,7 +8,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.Product;
-import com.psu.ie302.game.QuestionSingleProduct;
+import com.psu.ie302.game.questions.QuestionSingleProduct;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) throws IOException {
