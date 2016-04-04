@@ -1,21 +1,126 @@
 package com.psu.ie302.game;
 
+import java.util.Random;
+
 public class Product {
 
 	private String name;
 	private String company;
 	private String description;
-	private float IRR;
-	private float MARR;
+	private double IRR;
+	private double MARR;
+	private int[] cashflows;
 
 
-	public Product(String pName, String pCo, String pDesc, float irr, float marr) {
+	public Product(String pName, String pCo, String pDesc) {
 		this.name = pName;
 		this.company = pCo;
 		this.description = pDesc;
-		this.IRR = irr;
-		this.MARR = marr;
 	}
+	
+	/*
+	 * Randomly generate the cash flows over 3 years
+	 * Cash flow array structure:
+	 * 		------------------------------
+	 * 		 year	cash flow
+	 * 		------------------------------
+	 * 		 0		-(initial investment)
+	 * 		 1		year 1's cash flow
+	 * 		 2		year 2's cash flow
+	 *		 ...	...
+	 * 		------------------------------
+	 */
+	public void generateCashflows(int years) {
+		
+		// create space in cash flows array for the specified number of years
+		cashflows = new int[years];
+		
+		Random rand = new Random();
+		
+		int max = 2500000; 	// max investment
+		int min = 1000;		// min investment
+		
+		// put negative initial investment into cash flow for year 0
+		this.cashflows[0] = -(rand.nextInt((max - min) + 1) + min);
+		
+		// randomly generate and store the subsequent years of cash flows
+		for (int i = 1; i < years; i++) {
+			
+			// max: previous year's cash flow
+			// min: half of previous year's cash flow
+			max = Math.abs(cashflows[i-1]);
+			min = Math.abs(cashflows[i-1] / 2);
+
+			this.cashflows[i] = (rand.nextInt((max - min) + 1) + min);
+		}
+	}
+	
+	// return string of cash flow information after year zero
+	public String displayCashflows() {
+		String result = "";
+		for (int i = 1; i < this.cashflows.length; i++) {
+			result += "\t$" + this.cashflows[i]
+					+ " in year " + i + "\n";
+		}
+		return result;
+	}
+	
+	public int displayInitialInvestment() {
+		return Math.abs(this.cashflows[0]);
+	}
+	
+	// randomly generate MARR
+	public void generateMARR() {
+		Random rand = new Random();
+		double max = 0.5;
+		this.MARR = rand.nextDouble() * max;
+	}
+	
+	// returns MARR as a percentage
+	public String displayMARR() {
+		return (this.MARR * 100.0) + "%";
+	}
+	
+	/*
+	 * based off of:
+	 * http://vinitwagh.blogspot.com/2008/07/irrinternal-rate-of-return-function.html
+	 */
+	public void calculateIRR() {
+		final int MAX_ITER = 20;
+		double EXCEL_EPSILON = 0.0000001;
+		double x = 0.1;
+		int iter = 0;
+		while (iter++ < MAX_ITER) {
+			final double x1 = 1.0 + x;
+			double fx = 0.0;
+			double dfx = 0.0;
+			for (int i = 0; i < this.cashflows.length; i++) {
+				final double v = this.cashflows[i];
+				final double x1_i = Math.pow( x1, i );
+				fx += v / x1_i;
+				final double x1_i1 = x1_i * x1;
+				dfx += -i * v / x1_i1;
+			}
+			final double new_x = x - fx / dfx;
+			final double epsilon = Math.abs( new_x - x );
+		
+			if (epsilon <= EXCEL_EPSILON) {
+				if (x == 0.0 && Math.abs( new_x ) <= EXCEL_EPSILON) {
+				this.IRR = 0.0;
+				} else {
+					this.IRR =  new_x*100;
+				}
+			}
+			x = new_x;
+		}
+		this.IRR = x;
+	}
+	
+	// returns IRR as a percentage
+	public String displayIRR() {
+		return (this.IRR * 100.0) + "%";
+	}
+	
 	
 	public String getName() {
 		return this.name;
@@ -41,24 +146,30 @@ public class Product {
 		this.description = prodDesc;
 	}
 	
-	public float getIRR() {
+	// use for background calculations
+	public double getIRR() {
 		return this.IRR;
 	}
 	
-	public void setIRR(float prodIRR) {
+	public void setIRR(double prodIRR) {
 		this.IRR = prodIRR;
 	}
 	
-	public float getMARR() {
+	// use for background calculations
+	public double getMARR() {
 		return this.MARR;
 	}
-	
-	public void setMARR(float prodMARR) {
+
+	public void setMARR(double prodMARR) {
 		this.MARR = prodMARR;
 	}
 	
-	// randomly generate the IRR and MARR
-	public void generateIRRandMARR() {
-		;
+	public int[] getCashflows() {
+		return this.cashflows;
 	}
+	
+	public void setCashflows(int[] prodCashflows) {
+		this.cashflows = prodCashflows;
+	}
+	
 }

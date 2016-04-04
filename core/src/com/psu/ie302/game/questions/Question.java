@@ -14,7 +14,7 @@ public abstract class Question {
 
 	public abstract void setQuestionPrompt();
 	
-	//TODO: make sure class that calls this method checks if returned value is not null
+	// make sure class that calls this method checks if returned value is not null
 	public String getCorrectAnswer() {
 		return this.correctAnswer;
 	}

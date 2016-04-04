@@ -30,17 +30,14 @@ public class DesktopLauncher {
 				new Product("Aperture Science Handheld Portal Device / Portal Gun",
 						"Aperture Science, Inc.",
 						"Experimental tool used to place two portals which objects"
-								+ " can through from one to the other.",
-						5, 3),
+								+ " can pass through from one to the other."),
 				new Product("Krabby Patty",
 						"The Krusty Krab",
-						"The most famous sandwich in Bikini Bottom!",
-						4, 5),
+						"The most famous sandwich in Bikini Bottom!"),
 				new Product("Dunder Mifflin Paper (Ream)",
 						"Dunder Mifflin Paper Company, Inc.",
 						"500 sheets of bright white copy paper." + 
-						" Works well in copiers, inkjet or laser printers.",
-						2, 1)
+						" Works well in copiers, inkjet or laser printers.")
 		};
 		
 		// create array of questions

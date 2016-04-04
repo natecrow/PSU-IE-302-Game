@@ -14,6 +14,9 @@ public class QuestionSingleProduct extends Question {
 		//this.possibleAnswers[0] = "Y";
 		//this.possibleAnswers[1] = "N";
 		this.product = prod;
+		prod.generateMARR();
+		prod.generateCashflows(3);
+		prod.calculateIRR();
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
 	}
@@ -21,14 +24,25 @@ public class QuestionSingleProduct extends Question {
 	//protected String getQuestionPrompt();
 	
 	public void setQuestionPrompt() {
-		this.questionPrompt = "Check out the following product and "
-				+ "decide whether you want to invest in it or not (Y/N).\n"
+		//TODO: delete IRR once it is calculated automatically
+		this.questionPrompt = "An investor walks into the room with the following product:\n"
+				
 				+ "\tProduct name: " + this.product.getName() + "\n"
 				+ "\tCompany: " + this.product.getCompany() + "\n"
 				+ "\tDescription: " + this.product.getDescription() + "\n"
-				+ "\tIRR: " + this.product.getIRR() + "\n"
-				+ "\tMARR: " + this.product.getMARR() + "\n"
-				+ "Do you want to invest in this product? Type 'Y' or 'N'.\n";
+				
+				+ this.product.getCompany() + " is looking for an investment of $" 
+				+ this.product.displayInitialInvestment() + ".\n"
+				+ this.product.getCompany() + " projects that with this investment in year 0, "
+				+ "you will receive the following cash flows:\n"
+				+ this.product.displayCashflows()
+				
+				+ "As an investor, you have set your MARR to " + this.product.displayMARR() +".\n"
+				
+				+ "Do you want to invest in this product? (Y/N)\n"
+				
+				// show IRR for answer checking
+				+ "\tIRR: " + this.product.displayIRR() + "\n";
 	}
 	
 	//public void getCorrectAnswer();
