@@ -62,26 +62,7 @@ public class DesktopLauncher {
 			String ans = null;
 			ans = reader.readLine();
 			
-			// check answer and adjust score accordingly
-			if (questions[i].checkAnswer(ans)) {
-				if (ans.equals("Y")) {
-					money += 100;
-					System.out.println("Wise investment - "
-							+ "the product paid off! You've earned $100.\n");
-				} else {
-					System.out.println("That product ended up failing, so"
-							+ " good thing you didn't invest in it!\n");
-				}
-			} else {
-				if (ans.equals("Y")) {
-					money -= 100;
-					System.out.println("Too bad, the product flopped. You lost $100.\n");
-				} else {
-					System.out.println("Whoops! That product actually ended up doing well. "
-							+ "You missed out on the payoff, "
-							+ "but at least you didn't lose anything.\n");
-				}
-			}
+			questions[i].checkAndDisplayAnswerResults(ans, money);
 			
 			// display how much money player has so far
 			System.out.println("Your money so far: $" + money + "\n");

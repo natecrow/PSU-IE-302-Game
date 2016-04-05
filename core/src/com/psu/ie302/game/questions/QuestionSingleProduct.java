@@ -11,8 +11,6 @@ public class QuestionSingleProduct extends Question {
 	
 	
 	public QuestionSingleProduct(Product prod) {
-		//this.possibleAnswers[0] = "Y";
-		//this.possibleAnswers[1] = "N";
 		this.product = prod;
 		prod.generateMARR();
 		prod.generateCashflows(3);
@@ -21,8 +19,7 @@ public class QuestionSingleProduct extends Question {
 		this.setCorrectAnswer();
 	}
 	
-	//protected String getQuestionPrompt();
-	
+	@Override
 	public void setQuestionPrompt() {
 		//TODO: delete IRR once it is calculated automatically
 		this.questionPrompt = "An investor walks into the room with the following product:\n"
@@ -39,23 +36,46 @@ public class QuestionSingleProduct extends Question {
 				
 				+ "As an investor, you have set your MARR to " + this.product.displayMARR() +".\n"
 				
-				+ "Do you want to invest in this product? (Y/N)\n"
+				+ "Do you want to invest in this product? (Y = yes, N = no, D = doesn't matter)\n"
 				
 				// show IRR for answer checking
 				+ "\tIRR: " + this.product.displayIRR() + "\n";
 	}
 	
-	//public void getCorrectAnswer();
-	
+	@Override
 	public void setCorrectAnswer() {
-		if (this.product.getIRR() >= this.product.getMARR()) {
+		if (this.product.getIRR() > this.product.getMARR()) {
 			this.correctAnswer = "Y";
-		} else {
+		} else if (this.product.getIRR() < this.product.getMARR()) {
 			this.correctAnswer = "N";
+		} else { // IRR == MARR
+			this.correctAnswer = "D";
 		}
 	}
 	
-	//public boolean checkAnswer(String ans);
+	//TODO: handle "neither" case
+	public void checkAndDisplayAnswerResults(String ans, int money) {
+		// check answer and adjust score accordingly
+		if (this.checkAnswer(ans)) {
+			if (ans.equals("Y")) {
+				money += 100;
+				System.out.println("Wise investment - "
+						+ "the product paid off! You've earned $100.\n");
+			} else {
+				System.out.println("That product ended up failing, so"
+						+ " good thing you didn't invest in it!\n");
+			}
+		} else {
+			if (ans.equals("Y")) {
+				money -= 100;
+				System.out.println("Too bad, the product flopped. You lost $100.\n");
+			} else {
+				System.out.println("Whoops! That product actually ended up doing well. "
+						+ "You missed out on the payoff, "
+						+ "but at least you didn't lose anything.\n");
+			}
+		}
+	}
 	
 	/*
 	public Product getQuestionProduct() {
