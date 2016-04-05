@@ -8,7 +8,6 @@ public class Product {
 	private String company;
 	private String description;
 	private double IRR;
-	private double MARR;
 	private int[] cashflows;
 
 
@@ -69,58 +68,6 @@ public class Product {
 		return Math.abs(this.cashflows[0]);
 	}
 	
-	// randomly generate MARR
-	public void generateMARR() {
-		Random rand = new Random();
-		double max = 0.5;
-		this.MARR = rand.nextDouble() * max;
-	}
-	
-	// returns MARR as a percentage
-	public String displayMARR() {
-		return (this.MARR * 100.0) + "%";
-	}
-	
-	/*
-	 * based off of:
-	 * http://vinitwagh.blogspot.com/2008/07/irrinternal-rate-of-return-function.html
-	 */
-	public void calculateIRR() {
-		final int MAX_ITER = 20;
-		double EXCEL_EPSILON = 0.0000001;
-		double x = 0.1;
-		int iter = 0;
-		while (iter++ < MAX_ITER) {
-			final double x1 = 1.0 + x;
-			double fx = 0.0;
-			double dfx = 0.0;
-			for (int i = 0; i < this.cashflows.length; i++) {
-				final double v = this.cashflows[i];
-				final double x1_i = Math.pow( x1, i );
-				fx += v / x1_i;
-				final double x1_i1 = x1_i * x1;
-				dfx += -i * v / x1_i1;
-			}
-			final double new_x = x - fx / dfx;
-			final double epsilon = Math.abs( new_x - x );
-		
-			if (epsilon <= EXCEL_EPSILON) {
-				if (x == 0.0 && Math.abs( new_x ) <= EXCEL_EPSILON) {
-				this.IRR = 0.0;
-				} else {
-					this.IRR =  new_x*100;
-				}
-			}
-			x = new_x;
-		}
-		this.IRR = x;
-	}
-	
-	// returns IRR as a percentage
-	public String displayIRR() {
-		return (this.IRR * 100.0) + "%";
-	}
-	
 	
 	public String getName() {
 		return this.name;
@@ -153,15 +100,6 @@ public class Product {
 	
 	public void setIRR(double prodIRR) {
 		this.IRR = prodIRR;
-	}
-	
-	// use for background calculations
-	public double getMARR() {
-		return this.MARR;
-	}
-
-	public void setMARR(double prodMARR) {
-		this.MARR = prodMARR;
 	}
 	
 	public int[] getCashflows() {

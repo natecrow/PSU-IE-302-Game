@@ -7,7 +7,10 @@ import java.io.InputStreamReader;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.psu.ie302.game.IE302Game;
+import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
+import com.psu.ie302.game.questions.Question;
+import com.psu.ie302.game.questions.QuestionMultipleProducts;
 import com.psu.ie302.game.questions.QuestionSingleProduct;
 
 public class DesktopLauncher {
@@ -19,13 +22,14 @@ public class DesktopLauncher {
 		new LwjglApplication(new IE302Game(), config);
 		
 		
-		// TODO: make separate classes for this code in the core folder
-		
 		// set up input reader
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		
+		// create the player object
+		Player player = new Player(500);
+		
 		// create array of sample products
-		// TODO: automatically read these in from an XML file eventually
+		// TODO: automatically read these in from an JSON or XML file
 		Product[] sampleProducts = {
 				new Product("Aperture Science Handheld Portal Device / Portal Gun",
 						"Aperture Science, Inc.",
@@ -41,20 +45,18 @@ public class DesktopLauncher {
 		};
 		
 		// create array of questions
-		QuestionSingleProduct[] questions = {
+		Question[] questions = {
 				new QuestionSingleProduct(sampleProducts[0]),
-				new QuestionSingleProduct(sampleProducts[1]),
-				new QuestionSingleProduct(sampleProducts[2])
+				new QuestionMultipleProducts(sampleProducts[1], sampleProducts[2], 3)
 		};
 		
 		// player's money pool
-		int money = 500;
+		player.setMoney(500);
 		
 		// display how much money player has so far
-		System.out.println("Your starting amount: $" + money + "\n");
+		System.out.println("Your starting amount: $" + player.getMoney() + "\n");
 		
 		for (int i = 0; i < questions.length; i++) {
-			
 			// display question prompt
 			System.out.println(questions[i].getQuestionPrompt());
 			
@@ -62,29 +64,10 @@ public class DesktopLauncher {
 			String ans = null;
 			ans = reader.readLine();
 			
-			// check answer and adjust score accordingly
-			if (questions[i].checkAnswer(ans)) {
-				if (ans.equals("Y")) {
-					money += 100;
-					System.out.println("Wise investment - "
-							+ "the product paid off! You've earned $100.\n");
-				} else {
-					System.out.println("That product ended up failing, so"
-							+ " good thing you didn't invest in it!\n");
-				}
-			} else {
-				if (ans.equals("Y")) {
-					money -= 100;
-					System.out.println("Too bad, the product flopped. You lost $100.\n");
-				} else {
-					System.out.println("Whoops! That product actually ended up doing well. "
-							+ "You missed out on the payoff, "
-							+ "but at least you didn't lose anything.\n");
-				}
-			}
+			questions[i].checkAndDisplayAnswerResults(ans, player);
 			
 			// display how much money player has so far
-			System.out.println("Your money so far: $" + money + "\n");
+			System.out.println("Your money so far: $" + player.getMoney() + "\n");
 		}
 	}
 }
