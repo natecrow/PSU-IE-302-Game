@@ -1,5 +1,6 @@
 package com.psu.ie302.game.questions;
 
+import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.ProductCalculations;
 
@@ -9,13 +10,14 @@ import com.psu.ie302.game.ProductCalculations;
 public class QuestionSingleProduct extends Question {
 	
 	protected Product product;
+	private double MARR;
 	
 	
 	public QuestionSingleProduct(Product prod) {
 		this.product = prod;
-		prod.generateMARR();
 		prod.generateCashflows(3);
 		prod.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
+		this.MARR = Player.generateMARR();
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
 	}
@@ -34,7 +36,7 @@ public class QuestionSingleProduct extends Question {
 				+ "you will receive the following cash flows:\n"
 				+ this.product.displayCashflows()
 				
-				+ "As an investor, you have set your MARR to " + this.product.displayMARR() +".\n"
+				+ "As an investor, you have set your MARR to " + this.displayMARR() +".\n"
 				
 				+ "Do you want to invest in this product? (Y = yes, N = no, D = doesn't matter)\n"
 				
@@ -44,9 +46,9 @@ public class QuestionSingleProduct extends Question {
 	
 	@Override
 	public void setCorrectAnswer() {
-		if (this.product.getIRR() > this.product.getMARR()) {
+		if (this.product.getIRR() > this.MARR) {
 			this.correctAnswer = "Y";
-		} else if (this.product.getIRR() < this.product.getMARR()) {
+		} else if (this.product.getIRR() < this.MARR) {
 			this.correctAnswer = "N";
 		} else { // IRR == MARR
 			this.correctAnswer = "D";
@@ -54,11 +56,11 @@ public class QuestionSingleProduct extends Question {
 	}
 	
 	//TODO: handle "neither" case
-	public void checkAndDisplayAnswerResults(String ans, int money) {
+	public void checkAndDisplayAnswerResults(String ans, Player player) {
 		// check answer and adjust score accordingly
 		if (this.checkAnswer(ans)) {
 			if (ans.equals("Y") || ans.equals("D")) {
-				money += 100;
+				player.addMoney(100);
 				System.out.println("Wise investment - "
 						+ "the product paid off! You've earned $100.\n");
 			} else {
@@ -67,7 +69,7 @@ public class QuestionSingleProduct extends Question {
 			}
 		} else {
 			if (ans.equals("Y")) {
-				money -= 100;
+				player.addMoney(-100);
 				System.out.println("Too bad, the product flopped. You lost $100.\n");
 			} else {
 				System.out.println("Whoops! That product actually ended up doing well. "
@@ -75,6 +77,20 @@ public class QuestionSingleProduct extends Question {
 						+ "but at least you didn't lose anything.\n");
 			}
 		}
+	}
+	
+	// returns MARR as a percentage
+	public String displayMARR() {
+		return (this.MARR * 100.0) + "%";
+	}
+	
+	// use for background calculations
+	public double getMARR() {
+		return this.MARR;
+	}
+
+	public void setMARR(double prodMARR) {
+		this.MARR = prodMARR;
 	}
 	
 	/*

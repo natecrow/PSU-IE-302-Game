@@ -1,5 +1,6 @@
 package com.psu.ie302.game.questions;
 
+import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.ProductCalculations;
 
@@ -7,6 +8,8 @@ public class QuestionMultipleProducts extends Question {
 
 	protected Product product1;
 	protected Product product2;
+	@SuppressWarnings("unused")
+	private double MARR;
 	
 	
 	public QuestionMultipleProducts(Product prod1, Product prod2) {
@@ -14,15 +17,13 @@ public class QuestionMultipleProducts extends Question {
 		this.product1 = prod1;
 		this.product2 = prod2;
 		
-		// same MARR for each product
-		prod1.generateMARR();
-		prod2.setMARR(prod1.getMARR());
-		
 		prod1.generateCashflows(4);
 		prod2.generateCashflows(4);
 		
 		prod1.setIRR(ProductCalculations.calculateIRR(prod1.getCashflows()));
 		prod2.setIRR(ProductCalculations.calculateIRR(prod2.getCashflows()));
+		
+		this.MARR = Player.generateMARR();
 		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();

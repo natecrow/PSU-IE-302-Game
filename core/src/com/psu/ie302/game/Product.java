@@ -8,7 +8,6 @@ public class Product {
 	private String company;
 	private String description;
 	private double IRR;
-	private double MARR;
 	private int[] cashflows;
 
 
@@ -69,18 +68,6 @@ public class Product {
 		return Math.abs(this.cashflows[0]);
 	}
 	
-	// randomly generate MARR
-	public void generateMARR() {
-		Random rand = new Random();
-		double max = 0.5;
-		this.MARR = rand.nextDouble() * max;
-	}
-	
-	// returns MARR as a percentage
-	public String displayMARR() {
-		return (this.MARR * 100.0) + "%";
-	}
-	
 	// returns IRR as a percentage
 	public String displayIRR() {
 		return (this.IRR * 100.0) + "%";
@@ -118,15 +105,6 @@ public class Product {
 	
 	public void setIRR(double prodIRR) {
 		this.IRR = prodIRR;
-	}
-	
-	// use for background calculations
-	public double getMARR() {
-		return this.MARR;
-	}
-
-	public void setMARR(double prodMARR) {
-		this.MARR = prodMARR;
 	}
 	
 	public int[] getCashflows() {

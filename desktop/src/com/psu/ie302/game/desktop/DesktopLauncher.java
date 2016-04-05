@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.psu.ie302.game.IE302Game;
+import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.questions.QuestionSingleProduct;
 
@@ -19,10 +20,11 @@ public class DesktopLauncher {
 		new LwjglApplication(new IE302Game(), config);
 		
 		
-		// TODO: make separate classes for this code in the core folder
-		
 		// set up input reader
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
+		// create the player object
+		Player player = new Player(500);
 		
 		// create array of sample products
 		// TODO: automatically read these in from an XML file eventually
@@ -48,13 +50,12 @@ public class DesktopLauncher {
 		};
 		
 		// player's money pool
-		int money = 500;
+		player.setMoney(500);
 		
 		// display how much money player has so far
-		System.out.println("Your starting amount: $" + money + "\n");
+		System.out.println("Your starting amount: $" + player.getMoney() + "\n");
 		
 		for (int i = 0; i < questions.length; i++) {
-			
 			// display question prompt
 			System.out.println(questions[i].getQuestionPrompt());
 			
@@ -62,10 +63,10 @@ public class DesktopLauncher {
 			String ans = null;
 			ans = reader.readLine();
 			
-			questions[i].checkAndDisplayAnswerResults(ans, money);
+			questions[i].checkAndDisplayAnswerResults(ans, player);
 			
 			// display how much money player has so far
-			System.out.println("Your money so far: $" + money + "\n");
+			System.out.println("Your money so far: $" + player.getMoney() + "\n");
 		}
 	}
 }
