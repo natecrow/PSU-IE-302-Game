@@ -39,4 +39,9 @@ public final class ProductCalculations {
 		}
 		return x;
 	}
+	
+	// returns IRR as a percentage
+	public static String displayIRR(double irr) {
+		return (irr * 100.0) + "%";
+	}
 }

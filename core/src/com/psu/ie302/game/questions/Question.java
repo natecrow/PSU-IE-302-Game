@@ -1,5 +1,7 @@
 package com.psu.ie302.game.questions;
 
+import com.psu.ie302.game.Player;
+
 /*
  * Base Question class that all other questions inherit from
  */
@@ -11,6 +13,7 @@ public abstract class Question {
 
 	public abstract void setQuestionPrompt();
 	public abstract void setCorrectAnswer();
+	public abstract void checkAndDisplayAnswerResults(String ans, Player player);
 
 	
 	public String getQuestionPrompt() {

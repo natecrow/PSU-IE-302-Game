@@ -17,13 +17,4 @@ public abstract class QuestionProducts extends Question {
 	public String displayMARR() {
 		return (this.MARR * 100.0) + "%";
 	}
-	
-	// use for background calculations
-	public double getMARR() {
-		return this.MARR;
-	}
-
-	public void setMARR(double prodMARR) {
-		this.MARR = prodMARR;
-	}
 }

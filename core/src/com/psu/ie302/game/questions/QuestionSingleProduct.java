@@ -14,8 +14,8 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	public QuestionSingleProduct(Product prod) {
 		this.product = prod;
-		prod.generateCashflows(3);
-		prod.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
+		this.product.generateCashflows(3);
+		this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
 		this.MARR = Player.generateMARR();
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
@@ -23,7 +23,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	@Override
 	public void setQuestionPrompt() {
-		this.questionPrompt = "An investor walks into the room with the following product:\n"
+		this.questionPrompt = "An investor enters the Shark Tank with the following product:\n"
 				
 				+ "\tProduct name: " + this.product.getName() + "\n"
 				+ "\tCompany: " + this.product.getCompany() + "\n"
@@ -37,10 +37,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 				
 				+ "As an investor, you have set your MARR to " + this.displayMARR() +".\n"
 				
-				+ "Do you want to invest in this product? (Y = yes, N = no, D = doesn't matter)\n"
-				
-				// show IRR for answer checking
-				+ "\tIRR: " + this.product.displayIRR() + "\n";
+				+ "Do you want to invest in this product? (Y = yes, N = no, D = doesn't matter)";
 	}
 	
 	@Override
@@ -55,37 +52,40 @@ public class QuestionSingleProduct extends QuestionProducts {
 	}
 	
 	@Override
+	// check answer and adjust score accordingly
 	public void checkAndDisplayAnswerResults(String ans, Player player) {
-		// check answer and adjust score accordingly
+		
+		// if answer is correct...
 		if (this.checkAnswer(ans)) {
+			// ... and player invested in one or both, then player wins money
 			if (ans.equals("Y") || ans.equals("D")) {
 				player.addMoney(100);
 				System.out.println("Wise investment - "
-						+ "the product paid off! You've earned $100.\n");
-			} else {
-				System.out.println("That product ended up failing, so"
-						+ " good thing you didn't invest in it!\n");
+						+ "the product paid off! You've earned $100.");
 			}
-		} else {
-			if (ans.equals("Y")) {
-				player.addMoney(-100);
-				System.out.println("Too bad, the product flopped. You lost $100.\n");
-			} else {
-				System.out.println("Whoops! That product actually ended up doing well. "
-						+ "You missed out on the payoff, "
-						+ "but at least you didn't lose anything.\n");
+			// ... and player didn't invest, then player doesn't lose anything
+			else {
+				System.out.println("That product ended up failing, so"
+						+ " good thing you didn't invest in it!");
 			}
 		}
+		// if answer is incorrect...
+		else {
+			// ... and player invested, then player loses money
+			if (ans.equals("Y") || ans.equals("D")) {
+				player.addMoney(-100);
+				System.out.println("Too bad, the product flopped. You lost $100.");
+			}
+			// ... and player did not invest, then player doesn't win anything
+			else {
+				System.out.println("Whoops! That product actually ended up doing well. "
+						+ "You missed out on the payoff, "
+						+ "but at least you didn't lose anything.");
+			}
+		}
+		
+		System.out.println("The correct choice was: " + this.correctAnswer + "\n"
+				+ "(The correct IRR was: " + ProductCalculations.displayIRR(this.product.getIRR()) + ")\n");
 	}
-	
-	/*
-	public Product getQuestionProduct() {
-		return this.product;
-	}
-	
-	public void setQuestionProduct(Product prod) {
-		this.product = prod;
-	}
-	*/
 	
 }

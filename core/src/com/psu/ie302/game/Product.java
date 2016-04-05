@@ -68,11 +68,6 @@ public class Product {
 		return Math.abs(this.cashflows[0]);
 	}
 	
-	// returns IRR as a percentage
-	public String displayIRR() {
-		return (this.IRR * 100.0) + "%";
-	}
-	
 	
 	public String getName() {
 		return this.name;

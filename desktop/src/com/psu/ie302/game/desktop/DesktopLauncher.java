@@ -9,6 +9,8 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
+import com.psu.ie302.game.questions.Question;
+import com.psu.ie302.game.questions.QuestionMultipleProducts;
 import com.psu.ie302.game.questions.QuestionSingleProduct;
 
 public class DesktopLauncher {
@@ -27,7 +29,7 @@ public class DesktopLauncher {
 		Player player = new Player(500);
 		
 		// create array of sample products
-		// TODO: automatically read these in from an XML file eventually
+		// TODO: automatically read these in from an JSON or XML file
 		Product[] sampleProducts = {
 				new Product("Aperture Science Handheld Portal Device / Portal Gun",
 						"Aperture Science, Inc.",
@@ -43,10 +45,9 @@ public class DesktopLauncher {
 		};
 		
 		// create array of questions
-		QuestionSingleProduct[] questions = {
+		Question[] questions = {
 				new QuestionSingleProduct(sampleProducts[0]),
-				new QuestionSingleProduct(sampleProducts[1]),
-				new QuestionSingleProduct(sampleProducts[2])
+				new QuestionMultipleProducts(sampleProducts[1], sampleProducts[2], 3)
 		};
 		
 		// player's money pool
