@@ -1,6 +1,7 @@
 package com.psu.ie302.game.questions;
 
 import com.psu.ie302.game.Product;
+import com.psu.ie302.game.ProductCalculations;
 
 /*
  * Question for deciding to invest in one product or not
@@ -14,14 +15,13 @@ public class QuestionSingleProduct extends Question {
 		this.product = prod;
 		prod.generateMARR();
 		prod.generateCashflows(3);
-		prod.calculateIRR();
+		prod.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
 	}
 	
 	@Override
 	public void setQuestionPrompt() {
-		//TODO: delete IRR once it is calculated automatically
 		this.questionPrompt = "An investor walks into the room with the following product:\n"
 				
 				+ "\tProduct name: " + this.product.getName() + "\n"
@@ -57,7 +57,7 @@ public class QuestionSingleProduct extends Question {
 	public void checkAndDisplayAnswerResults(String ans, int money) {
 		// check answer and adjust score accordingly
 		if (this.checkAnswer(ans)) {
-			if (ans.equals("Y")) {
+			if (ans.equals("Y") || ans.equals("D")) {
 				money += 100;
 				System.out.println("Wise investment - "
 						+ "the product paid off! You've earned $100.\n");

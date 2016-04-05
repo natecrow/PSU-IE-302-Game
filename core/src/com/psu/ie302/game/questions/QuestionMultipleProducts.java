@@ -1,6 +1,7 @@
 package com.psu.ie302.game.questions;
 
 import com.psu.ie302.game.Product;
+import com.psu.ie302.game.ProductCalculations;
 
 public class QuestionMultipleProducts extends Question {
 
@@ -20,8 +21,8 @@ public class QuestionMultipleProducts extends Question {
 		prod1.generateCashflows(4);
 		prod2.generateCashflows(4);
 		
-		prod1.calculateIRR();
-		prod2.calculateIRR();
+		prod1.setIRR(ProductCalculations.calculateIRR(prod1.getCashflows()));
+		prod2.setIRR(ProductCalculations.calculateIRR(prod2.getCashflows()));
 		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
