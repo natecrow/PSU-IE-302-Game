@@ -4,12 +4,10 @@ import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.ProductCalculations;
 
-public class QuestionMultipleProducts extends Question {
+public class QuestionMultipleProducts extends QuestionProducts {
 
 	protected Product product1;
 	protected Product product2;
-	@SuppressWarnings("unused")
-	private double MARR;
 	
 	
 	public QuestionMultipleProducts(Product prod1, Product prod2) {
@@ -60,6 +58,12 @@ public class QuestionMultipleProducts extends Question {
 			this.correctAnswer = "2";
 		}
 		
+	}
+
+	@Override
+	public void checkAndDisplayAnswerResults(String ans, Player player) {
+		// TODO Auto-generated method stub
+		System.out.println("Implement me");
 	}
 
 }

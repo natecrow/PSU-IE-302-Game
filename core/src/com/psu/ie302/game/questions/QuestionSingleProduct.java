@@ -7,10 +7,9 @@ import com.psu.ie302.game.ProductCalculations;
 /*
  * Question for deciding to invest in one product or not
  */
-public class QuestionSingleProduct extends Question {
+public class QuestionSingleProduct extends QuestionProducts {
 	
 	protected Product product;
-	private double MARR;
 	
 	
 	public QuestionSingleProduct(Product prod) {
@@ -55,7 +54,7 @@ public class QuestionSingleProduct extends Question {
 		}
 	}
 	
-	//TODO: handle "neither" case
+	@Override
 	public void checkAndDisplayAnswerResults(String ans, Player player) {
 		// check answer and adjust score accordingly
 		if (this.checkAnswer(ans)) {
@@ -77,20 +76,6 @@ public class QuestionSingleProduct extends Question {
 						+ "but at least you didn't lose anything.\n");
 			}
 		}
-	}
-	
-	// returns MARR as a percentage
-	public String displayMARR() {
-		return (this.MARR * 100.0) + "%";
-	}
-	
-	// use for background calculations
-	public double getMARR() {
-		return this.MARR;
-	}
-
-	public void setMARR(double prodMARR) {
-		this.MARR = prodMARR;
 	}
 	
 	/*
