@@ -10,6 +10,7 @@ import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.questions.Question;
+import com.psu.ie302.game.questions.QuestionInflationType1;
 import com.psu.ie302.game.questions.QuestionMultipleProducts;
 import com.psu.ie302.game.questions.QuestionSingleProduct;
 
@@ -47,7 +48,9 @@ public class DesktopLauncher {
 		// create array of questions
 		Question[] questions = {
 				new QuestionSingleProduct(sampleProducts[0]),
-				new QuestionMultipleProducts(sampleProducts[1], sampleProducts[2], 3)
+				new QuestionMultipleProducts(sampleProducts[1], sampleProducts[2], 3),
+				new QuestionInflationType1(),
+				new QuestionInflationType1()
 		};
 		
 		// player's money pool
