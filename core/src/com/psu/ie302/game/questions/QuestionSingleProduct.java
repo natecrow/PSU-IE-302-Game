@@ -9,7 +9,7 @@ import com.psu.ie302.game.ProductCalculations;
  */
 public class QuestionSingleProduct extends QuestionProducts {
 	
-	protected Product product;
+	private Product product;
 	
 	
 	public QuestionSingleProduct(Product prod) {

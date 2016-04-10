@@ -29,4 +29,5 @@ public abstract class Question {
 	public boolean checkAnswer(String ans) {
 		return (ans.equals(this.correctAnswer));
 	}
+	
 }

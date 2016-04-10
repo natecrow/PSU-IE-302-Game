@@ -163,7 +163,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		}
 		
 		System.out.println("The correct choice was: " + this.correctAnswer + "\n"
-				+ "(The correct IRR was: " + ProductCalculations.displayIRR(this.irrDiff) + ")\n");
+				+ "(The correct combined IRR (if any) was: " + ProductCalculations.displayIRR(this.irrDiff) + ")\n");
 	}
 
 }
