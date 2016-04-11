@@ -9,13 +9,7 @@ public class Product {
 	private String description;
 	private double IRR;
 	private int[] cashflows;
-
-
-	public Product(String pName, String pCo, String pDesc) {
-		this.name = pName;
-		this.company = pCo;
-		this.description = pDesc;
-	}
+	
 	
 	/*
 	 * Randomly generate the cash flows over 3 years
