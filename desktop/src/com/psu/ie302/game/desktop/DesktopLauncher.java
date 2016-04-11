@@ -3,9 +3,12 @@ package com.psu.ie302.game.desktop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.utils.Json;
 import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
@@ -30,26 +33,20 @@ public class DesktopLauncher {
 		// create the player object
 		Player player = new Player(500);
 		
-		// create array of sample products
-		// TODO: automatically read these in from an JSON or XML file
-		Product[] sampleProducts = {
-				new Product("Aperture Science Handheld Portal Device / Portal Gun",
-						"Aperture Science, Inc.",
-						"Experimental tool used to place two portals which objects"
-								+ " can pass through from one to the other."),
-				new Product("Krabby Patty",
-						"The Krusty Krab",
-						"The most famous sandwich in Bikini Bottom!"),
-				new Product("Dunder Mifflin Paper (Ream)",
-						"Dunder Mifflin Paper Company, Inc.",
-						"500 sheets of bright white copy paper." + 
-						" Works well in copiers, inkjet or laser printers.")
-		};
+		// Read products from JSON file into an Array List
+		Json json = new Json();
+		@SuppressWarnings("unchecked")
+		ArrayList<Product> productsList = json.fromJson(ArrayList.class, Product.class,
+				Gdx.files.local("products.json"));
+		
+		// Convert Array List of products into a regular array
+		Product[] products = new Product[productsList.size()];
+		products = productsList.toArray(products);
 		
 		// create array of questions
 		Question[] questions = {
-				new QuestionSingleProduct(sampleProducts[0]),
-				new QuestionMultipleProducts(sampleProducts[1], sampleProducts[2], 3),
+				new QuestionSingleProduct(products[0]),
+				new QuestionMultipleProducts(products[1], products[2], 3),
 				new QuestionInflationType1(),
 				new QuestionInflationType2()
 		};

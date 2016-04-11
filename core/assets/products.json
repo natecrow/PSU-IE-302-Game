@@ -1,0 +1,182 @@
+[
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "Portal Gun",
+        company: "Aperture Science, Inc.",
+        description: "Experimental tool used to place two portals which objects can pass through from one to the other. (From Portal 1 and 2.)"
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "Krabby Patty",
+        company: "The Krusty Krab",
+        description: "The most famous sandwich in Bikini Bottom! (From Spongebob.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Dunder Mifflin Paper (Ream)",
+        company: "Dunder Mifflin Paper Company, Inc.",
+        description: "500 sheets of bright white copy paper. Works well in copiers, inkjet or laser printers. (From The Office.)"
+    },
+       {
+    	class: com.psu.ie302.game.Product,
+        name: "Sex Panther Cologne",
+        company: "Paul Rudd Scents, LLC",
+        description: "Cologne made with bits of real panther, so you know it�s good. Guaranteed to work 60% of the time all the time. (From Anchorman.)"
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "Soma",
+        company: "World States",
+        description: "Euphoric, narcotic, pleasantly hallucinant. (From Aldous Huxley's Brave New World.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Finger Scanner for phones, tablets, and PCs",
+        company: "Optimetrics, Inc.",
+        description: "This scanner can be installed into most technological products to provide security for all of your devices."
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+    	name: "Flying Car",
+    	company: "Lamborgbikini, Inc.",
+    	description: "There will be no traffic jam anymore, and you can arrive anywhere you  want fast and easy."
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "Hover Board",
+        company: "High Tec Co.",
+        description: "Similar to skateboard, but without contact to the ground. You will feel no friction and it feels like flying."
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "All-in-one Food Product",
+        company: "Easy Food Co.",
+        description: "Plain and easy-to-prepare food that contains all essential nutrients."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Zombie Apocalypse Survival Kit",
+        company: "Man Crates",
+        description: "Emergency survival kit which include every necessary and useful tools when you have to face a Zombie crisis."
+    },
+       {
+    	class: com.psu.ie302.game.Product,
+        name: "Water Boots",
+        company: "Dash Water Products",
+        description: "Boots that, when worn, allow the user to walk on water."
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+        name: "Teleportation Device",
+        company: "Fast Travel, Inc.",
+        description: "Booth that allows the user to teleport to any given location using longitude and latitude coordinates."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Insta-Dream",
+        company: "Sleep Geek",
+        description: "Device that immediately makes the user fall asleep and dream vivid dreams."
+    },
+    {
+    	class: com.psu.ie302.game.Product,
+    	name: "Time Machine",
+    	company: "Back to the Future Co.",
+    	description: "Set the time node in the control panel, driving fast with high volt of electricity, you can get back to whenever you want to be."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "GeekMyTree Dancing Christmas Tree",
+        company: "GeekMyTree",
+        description: "Modern Christmas tree with LED lights that sings and dances. (From Shark Tank.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Winter Essentials Beard Head Accessory",
+        company: "Winter Essentials",
+        description: "Beard head is a hat or beanie with a hand-knit, detachable beard face mask. (From Shark Tank.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "LovePop Paper Art",
+        company: "LovePop",
+        description: "Birthdays and special occasions paper art that pops! (From Shark Tank.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Extreme Adults Sandbox",
+        company: "Extreme",
+        description: "A heavy equipment adventures company that lets clients play on construction equipment. (From Shark Tank.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Spretz Two Fresh Hand and Mouth Spray",
+        company: "Spretz",
+        description: "All natural two-in-one spray product for stinky hands and bad breath. (From Shark Tank.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Projection Keyboard",
+        company: "Apple, Inc.",
+        description: "Project a keyboard on any flat surface, and finger knock still works."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Radiant Farms Unicorn Meat",
+        company: "Radiant Farms",
+        description: "Unicorn meat is the best source of sparkles."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Textbook Reader",
+        company: "Smart Study, Inc.",
+        description: "Device that reads textbooks to you and allows users to learn endless material in their sleep."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Lava Lamp",
+        company: "Fine Decorations, Inc.",
+        description: "Beautiful lava lamp with new aesthetically appealing design."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Beer Making Kit",
+        company: "Mr. Beer",
+        description: "This kit offers you the true micro-brew experience in your own home, and you can drink your own beer."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Stroller Scooter",
+        company: "Scooters, Inc.",
+        description: "Baby stroller with a built-in scooter for the parent."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Virtual Reality iPhone Case",
+        company: "Figment VR",
+        description: "Experience and share thousands of great VR apps, movies, and photos anywhere you go."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "3D Printing Pen",
+        company: "3Doodler",
+        description: "You can create your own 3D drawing with this small 3D pen."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Backpack Bike",
+        company: "Adventure Unlimited",
+        description: "A bike that folds up into a backpack and also has compartments for storage."
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "How I Met Your Mother Sandwiches",
+        company: "HIMYM Sandwich Shop",
+        description: "Delicious, specially formulated sandwiches guaranteed to evoke feelings of bliss and euphoria when consumed. (From How I Met Your Mother.)"
+    },
+	{
+    	class: com.psu.ie302.game.Product,
+        name: "Smart Light Bulb",
+        company: "LIFX",
+        description: "You can change the light bulb color with your smartphone, only need to download an app."
+    }
+]
