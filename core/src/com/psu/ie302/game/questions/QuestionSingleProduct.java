@@ -59,7 +59,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 		if (this.checkAnswer(ans)) {
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("Y") || ans.equals("D")) {
-				player.addMoney(100);
+				player.addScore(1);
 				System.out.println("Wise investment - "
 						+ "the product paid off! You've earned $100.");
 			}
@@ -67,13 +67,14 @@ public class QuestionSingleProduct extends QuestionProducts {
 			else {
 				System.out.println("That product ended up failing, so"
 						+ " good thing you didn't invest in it!");
+				player.addScore(1);
 			}
 		}
 		// if answer is incorrect...
 		else {
 			// ... and player invested, then player loses money
 			if (ans.equals("Y") || ans.equals("D")) {
-				player.addMoney(-100);
+				player.addScore(0);
 				System.out.println("Too bad, the product flopped. You lost $100.");
 			}
 			// ... and player did not invest, then player doesn't win anything

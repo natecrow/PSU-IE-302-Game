@@ -12,6 +12,7 @@ public abstract class QuestionInflation extends Question {
 		if ((Double.parseDouble(ans) <= Double.parseDouble(this.correctAnswer) + 1) 
 				&& (Double.parseDouble(ans) >= Double.parseDouble(this.correctAnswer) - 1)) {
 			System.out.print("CORRECT! ");
+			player.addScore(1);
 		} else {
 			System.out.print("WRONG! ");
 		}
