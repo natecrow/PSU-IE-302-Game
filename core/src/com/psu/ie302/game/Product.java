@@ -30,8 +30,8 @@ public class Product {
 		
 		Random rand = new Random();
 		
-		int max = 2500000; 	// max investment
-		int min = 1000;		// min investment
+		int max = 1000000; 	// max investment
+		int min = 5000;		// min investment
 		
 		// put negative initial investment into cash flow for year 0
 		this.cashflows[0] = -(rand.nextInt((max - min) + 1) + min);

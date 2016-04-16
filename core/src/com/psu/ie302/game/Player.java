@@ -4,10 +4,10 @@ import java.util.Random;
 
 public final class Player {
 
-	private static int money;
+	private static int score;
 	
-	public Player(int initialMoney) {
-		Player.money = initialMoney;
+	public Player() {
+		Player.score = 0;
 	}
 	
 	// randomly generate MARR
@@ -17,15 +17,15 @@ public final class Player {
 		return rand.nextDouble() * max;
 	}
 
-	public int getMoney() {
-		return Player.money;
+	public int getScore() {
+		return Player.score;
 	}
 
 	public void setMoney(int moneyAmt) {
-		Player.money = moneyAmt;
+		Player.score = moneyAmt;
 	}
 	
-	public void addMoney(int amt) {
-		Player.money += amt;
+	public void addScore(int amt) {
+		Player.score += amt;
 	}
 }

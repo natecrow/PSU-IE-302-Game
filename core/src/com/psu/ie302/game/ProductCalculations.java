@@ -1,5 +1,7 @@
 package com.psu.ie302.game;
 
+import java.util.Random;
+
 /*
  * Contains methods for calculations related to the products class
  */
@@ -43,5 +45,11 @@ public final class ProductCalculations {
 	// returns IRR as a percentage
 	public static String displayIRR(double irr) {
 		return (irr * 100.0) + "%";
+	}
+	
+	// randomly pick an index for a product from the product list
+	public static int randomlyPickProduct(int max) {
+		Random rand = new Random();
+		return (rand.nextInt(max + 1));
 	}
 }
