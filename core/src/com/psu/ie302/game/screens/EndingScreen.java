@@ -1,6 +1,7 @@
-package com.psu.ie302.game;
+package com.psu.ie302.game.screens;
 
 import com.badlogic.gdx.Screen;
+import com.psu.ie302.game.IE302Game;
 
 public class EndingScreen implements Screen {
 
