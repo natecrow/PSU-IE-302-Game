@@ -10,9 +10,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) throws IOException {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "PSU IE 302 Game";
-		config.width = 800;
-		config.height = 600;
-		config.resizable = false;
+		config.width = IE302Game.VIRTUAL_WIDTH;
+		config.height = IE302Game.VIRTUAL_HEIGHT;
 		new LwjglApplication(new IE302Game(), config);
 	}
 }

@@ -21,28 +21,28 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		lblTest.setPosition(200, 200, Align.center);
 		
 		// add everything to stage
-		addActor(lblTest);
+		stage.addActor(lblTest);
 		
 		// display question prompt
-		System.out.println("Question " + (this.game.qItr + 1) + " out of " 
-				+ this.game.questions.length + "\n\n"
-				+ this.game.questions[this.game.qItr].getQuestionPrompt());
+		System.out.println("Question " + (game.qItr + 1) + " out of " 
+				+ game.questions.length + "\n\n"
+				+ game.questions[game.qItr].getQuestionPrompt());
 		
 		// input answer
 		String ans = null;
 		try {
-			ans = this.game.reader.readLine();
+			ans = game.reader.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		this.game.questions[this.game.qItr].checkAndDisplayAnswerResults(ans, this.game.player);
+		game.questions[this.game.qItr].checkAndDisplayAnswerResults(ans, this.game.player);
 		
 		// display how much money player has so far
 		System.out.println("Your money so far: $" + this.game.player.getScore() + "\n");
 		
 		// increment question iterator
-		this.game.qItr++;
+		game.qItr++;
 		
 	}
 
