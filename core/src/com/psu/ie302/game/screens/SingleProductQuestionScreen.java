@@ -21,7 +21,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		lblTest.setPosition(200, 200, Align.center);
 		
 		// add everything to stage
-		addActor(lblTest);
+		stage.addActor(lblTest);
 		
 		// display question prompt
 		System.out.println("Question " + (this.game.qItr + 1) + " out of " 
@@ -48,7 +48,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		super.dispose();
+		stage.dispose();
 	}
 
 }

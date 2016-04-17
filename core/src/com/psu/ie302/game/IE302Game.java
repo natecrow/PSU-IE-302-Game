@@ -13,6 +13,9 @@ import com.psu.ie302.game.questions.Question;
 
 public class IE302Game extends Game {
 	
+	public static final int VirtualWidth = 800;
+	public static final int VirtualHeight = 600;
+	
 	public SpriteBatch batch;
 	public BitmapFont font;
 	public Skin skin;
@@ -45,8 +48,4 @@ public class IE302Game extends Game {
 	public void render () {
 		super.render();
 	}
-	
-	@Override public void resize(int width, int height) {}
-	@Override public void pause() {}
-	@Override public void resume() {}
 }

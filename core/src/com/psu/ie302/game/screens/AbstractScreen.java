@@ -5,16 +5,20 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.psu.ie302.game.IE302Game;
 
-public abstract class AbstractScreen extends Stage implements Screen {
+public abstract class AbstractScreen implements Screen {
 
 	protected IE302Game game;
+	protected Stage stage;
 	
 	protected AbstractScreen(IE302Game game) {
-		super(new StretchViewport(800f, 600f, new OrthographicCamera()));
 		this.game = game;
+		OrthographicCamera camera = new OrthographicCamera();
+		camera.setToOrtho(false, IE302Game.VirtualWidth, IE302Game.VirtualHeight);
+		stage = new Stage(new FitViewport(IE302Game.VirtualWidth, IE302Game.VirtualHeight, camera));
+		Gdx.input.setInputProcessor(this.stage);
 	}
 	
 	/*
@@ -33,9 +37,7 @@ public abstract class AbstractScreen extends Stage implements Screen {
 	}
 	
 	@Override
-	public void show() {
-		Gdx.input.setInputProcessor(this);
-	}
+	public void show() {}
 
 	@Override
 	public void render(float delta) {
@@ -44,13 +46,13 @@ public abstract class AbstractScreen extends Stage implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// Calling to Stage methods
-		super.act(delta);
-		super.draw();
+		this.stage.act(delta);
+		this.stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		getViewport().update(width, height);
+		this.stage.getViewport().update(width, height, true);
 	}
 
 	@Override public void pause() {}

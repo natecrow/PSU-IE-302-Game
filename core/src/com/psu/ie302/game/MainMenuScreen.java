@@ -41,15 +41,14 @@ public class MainMenuScreen extends AbstractScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				initGameInfo();
-				System.out.println(game.questions[game.qItr].getClass().getName());
 				switchToQuestionScreen(game);
 	            dispose();
 			}
 		});
 		
 		// add everything to stage
-		addActor(this.btnPlay);
-		addActor(this.btnInstructions);
+		stage.addActor(this.btnPlay);
+		stage.addActor(this.btnInstructions);
 	}
 
 	/* 
@@ -95,7 +94,7 @@ public class MainMenuScreen extends AbstractScreen {
 
 	@Override
 	public void dispose() {
-		super.dispose();
+		stage.dispose();
 	}
 
 }

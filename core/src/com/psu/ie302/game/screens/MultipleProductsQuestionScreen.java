@@ -34,7 +34,7 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 	
 	@Override
 	public void dispose() {
-		super.dispose();
+		stage.dispose();
 	}
 
 }
