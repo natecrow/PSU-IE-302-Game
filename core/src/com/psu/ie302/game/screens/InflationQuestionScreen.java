@@ -34,7 +34,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 	
 	@Override
 	public void dispose() {
-		stage.dispose();
+		super.dispose();
 	}
 
 }

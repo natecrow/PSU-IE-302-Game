@@ -15,9 +15,11 @@ public abstract class AbstractScreen implements Screen {
 	
 	protected AbstractScreen(IE302Game game) {
 		this.game = game;
+		
 		OrthographicCamera camera = new OrthographicCamera();
-		camera.setToOrtho(false, IE302Game.VirtualWidth, IE302Game.VirtualHeight);
-		stage = new Stage(new FitViewport(IE302Game.VirtualWidth, IE302Game.VirtualHeight, camera));
+		camera.setToOrtho(false, IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT);
+		
+		stage = new Stage(new FitViewport(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT, camera));
 		Gdx.input.setInputProcessor(this.stage);
 	}
 	
@@ -35,9 +37,6 @@ public abstract class AbstractScreen implements Screen {
 			game.setScreen(new InflationQuestionScreen(game));
 		}
 	}
-	
-	@Override
-	public void show() {}
 
 	@Override
 	public void render(float delta) {
@@ -46,15 +45,21 @@ public abstract class AbstractScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		// Calling to Stage methods
-		this.stage.act(delta);
-		this.stage.draw();
+		stage.act(delta);
+		stage.draw();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		this.stage.getViewport().update(width, height, true);
+		stage.getViewport().update(width, height, true);
 	}
 
+	@Override
+	public void dispose() {
+		stage.dispose();
+	}
+	
+	@Override public void show() {}
 	@Override public void pause() {}
 	@Override public void resume() {}
 	@Override public void hide() {}
