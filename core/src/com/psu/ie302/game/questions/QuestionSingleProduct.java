@@ -53,20 +53,21 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	@Override
 	// check answer and adjust score accordingly
-	public void checkAndDisplayAnswerResults(String ans, Player player) {
+	public String checkAndDisplayAnswerResults(String ans, Player player) {
+		String results = "";
 		
 		// if answer is correct...
 		if (this.checkAnswer(ans)) {
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("Y") || ans.equals("D")) {
 				player.addScore(1);
-				System.out.println("Wise investment - "
-						+ "the product paid off! You've earned $100.");
+				results += "Wise investment - "
+						+ "the product paid off! You've earned $100.\n";
 			}
 			// ... and player didn't invest, then player doesn't lose anything
 			else {
-				System.out.println("That product ended up failing, so"
-						+ " good thing you didn't invest in it!");
+				results += "That product ended up failing, so"
+						+ " good thing you didn't invest in it!\n";
 				player.addScore(1);
 			}
 		}
@@ -75,18 +76,20 @@ public class QuestionSingleProduct extends QuestionProducts {
 			// ... and player invested, then player loses money
 			if (ans.equals("Y") || ans.equals("D")) {
 				player.addScore(0);
-				System.out.println("Too bad, the product flopped. You lost $100.");
+				results += "Too bad, the product flopped. You lost $100.\n";
 			}
 			// ... and player did not invest, then player doesn't win anything
 			else {
-				System.out.println("Whoops! That product actually ended up doing well. "
+				results += "Whoops! That product actually ended up doing well. "
 						+ "You missed out on the payoff, "
-						+ "but at least you didn't lose anything.");
+						+ "but at least you didn't lose anything.\n";
 			}
 		}
 		
-		System.out.println("The correct choice was: " + this.correctAnswer + "\n"
-				+ "(The correct IRR was: " + ProductCalculations.displayIRR(this.product.getIRR()) + ")\n");
+		results += "The correct choice was: " + this.correctAnswer + "\n"
+				+ "(The correct IRR was: " + ProductCalculations.displayIRR(this.product.getIRR()) + ")\n";
+	
+		return results;
 	}
 	
 }

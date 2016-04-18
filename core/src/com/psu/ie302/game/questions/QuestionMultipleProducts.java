@@ -132,19 +132,21 @@ public class QuestionMultipleProducts extends QuestionProducts {
 
 	@Override
 	// check answer and adjust score accordingly
-	public void checkAndDisplayAnswerResults(String ans, Player player) {
+	public String checkAndDisplayAnswerResults(String ans, Player player) {
+		String results = "";
+		
 		// if answer is correct ...
 		if (this.checkAnswer(ans)) {
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
 				player.addScore(1);
-				System.out.println("Wise investment - "
-						+ "that product(s) paid off! You've earned $100.");
+				results += "Wise investment - "
+						+ "that product(s) paid off! You've earned $100.\n";
 			} 
 			// ... and player didn't invest, then player doesn't lose anything
 			else {
-				System.out.println("Both products ended up failing, so"
-						+ " good thing you didn't invest in either of them!");
+				results += "Both products ended up failing, so"
+						+ " good thing you didn't invest in either of them!\n";
 				player.addScore(1);
 			}
 		}
@@ -153,18 +155,20 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// ... and player invested, then player loses money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
 				player.addScore(0);
-				System.out.println("Too bad, the product flopped. You lost $100.");
+				results += "Too bad, the product flopped. You lost $100.\n";
 			}
 			// ... and player did not invest, then player doesn't win anything
 			else {
-				System.out.println("Whoops! That product(s) actually ended up doing well. "
+				results += "Whoops! That product(s) actually ended up doing well. "
 						+ "You missed out on the payoff, "
-						+ "but at least you didn't lose anything.");
+						+ "but at least you didn't lose anything.\n";
 			}
 		}
 		
-		System.out.println("The correct choice was: " + this.correctAnswer + "\n"
-				+ "(The correct combined IRR (if any) was: " + ProductCalculations.displayIRR(this.irrDiff) + ")\n");
+		results += "The correct choice was: " + this.correctAnswer + "\n"
+				+ "(The correct combined IRR (if any) was: " + ProductCalculations.displayIRR(this.irrDiff) + ")\n";
+	
+		return results;
 	}
 
 }

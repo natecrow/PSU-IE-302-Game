@@ -13,7 +13,7 @@ public abstract class Question {
 
 	public abstract void setQuestionPrompt();
 	public abstract void setCorrectAnswer();
-	public abstract void checkAndDisplayAnswerResults(String ans, Player player);
+	public abstract String checkAndDisplayAnswerResults(String ans, Player player);
 
 	
 	public String getQuestionPrompt() {
