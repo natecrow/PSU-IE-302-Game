@@ -7,16 +7,20 @@ import com.psu.ie302.game.Player;
 public abstract class QuestionInflation extends Question {
 
 	@Override
-	public void checkAndDisplayAnswerResults(String ans, Player player) {
+	public String checkAndDisplayAnswerResults(String ans, Player player) {
+		String result = "";
+		
 		// if answer is within 1 of the correct answer, then award player
 		if ((Double.parseDouble(ans) <= Double.parseDouble(this.correctAnswer) + 1) 
 				&& (Double.parseDouble(ans) >= Double.parseDouble(this.correctAnswer) - 1)) {
-			System.out.print("CORRECT! ");
+			result += "CORRECT! ";
 			player.addScore(1);
 		} else {
-			System.out.print("WRONG! ");
+			result += "WRONG! ";
 		}
-		System.out.println("The correct dollar amount is: " + this.correctAnswer + "\n");
+		result += "The correct dollar amount is: " + this.correctAnswer + "\n";
+	
+		return result;
 	}
 	
 	// randomly generate an int given a min and max value

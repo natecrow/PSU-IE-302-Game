@@ -4,7 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.psu.ie302.game.IE302Game;
 
@@ -36,6 +42,42 @@ public abstract class AbstractScreen implements Screen {
 		else {	// otherwise it must be an inflation question
 			game.setScreen(new InflationQuestionScreen(game));
 		}
+	}
+	
+	/*
+	 * Overwrites a given table to show the results of the answer.
+	 * Also returns true when the player has clicked to move on to the 
+	 * next screen
+	 */
+	protected void displayResults(Table tbl, String resultTxt) {
+		tbl.clearChildren();
+		
+		// Create and display label for answer results
+		final Label labelResults = new Label(resultTxt, game.skin);
+		labelResults.setWrap(true);
+		labelResults.setAlignment(Align.center);
+		
+		// Create a button to move on to the next question
+		final TextButton btnNextQuestion = new TextButton("Next Question", game.skin);
+		btnNextQuestion.setSize(100f, 30f);
+		
+		// Add widgets to the table
+		tbl.defaults().space(10f);
+		tbl.add(labelResults).expandX().fill();
+		tbl.row();
+		tbl.add(btnNextQuestion).size(150f, 30f);
+		
+		// Keep checking if player has clicked 'next' yet.
+		// Once they do, then return true.
+		// TODO: switch screens in calling class and figure out how to notify from here
+		btnNextQuestion.addListener(new ChangeListener() {
+			@Override
+			public void changed (ChangeEvent event, Actor btnNextQuestion) {
+				game.qItr++;
+				dispose();
+				switchToQuestionScreen(game);
+			}
+		});
 	}
 
 	@Override
