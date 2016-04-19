@@ -18,7 +18,7 @@ public class InstructionsScreen extends AbstractScreen {
 		final Table tbl = new Table();
 		tbl.setFillParent(true);
 		stage.addActor(tbl);
-		tbl.setDebug(true);
+		//tbl.setDebug(true);
 		
 		// create label with instructions
 		String instructionsStr =

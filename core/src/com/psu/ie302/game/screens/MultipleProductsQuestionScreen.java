@@ -22,7 +22,7 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		tblImg1.setPosition(0, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
 		tblImg1.setSize((IE302Game.VIRTUAL_WIDTH / 2), IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblImg1);
-		tblImg1.setDebug(true);
+		//tblImg1.setDebug(true);
 		
 		// create image for first product
 		
@@ -35,7 +35,7 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		tblImg2.setPosition(IE302Game.VIRTUAL_WIDTH / 2, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
 		tblImg2.setSize(IE302Game.VIRTUAL_WIDTH / 2, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblImg2);
-		tblImg2.setDebug(true);
+		//tblImg2.setDebug(true);
 		
 		// create image for second product
 		
@@ -87,7 +87,7 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		tblAns.setPosition(0, 0);
 		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblAns);
-		tblAns.setDebug(true);
+		//tblAns.setDebug(true);
 		
 		// create label for answer instructions
 		String qPrompt = "Which product will you invest in?\n"

@@ -19,7 +19,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblImg.setPosition(0, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
 		tblImg.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblImg);
-		tblImg.setDebug(true);
+		//tblImg.setDebug(true);
 		
 		// create image for product
 		
@@ -32,7 +32,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblProdInfo.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 3);
 		tblProdInfo.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblProdInfo);
-		tblProdInfo.setDebug(true);
+		//tblProdInfo.setDebug(true);
 		
 		// create label for product description
 		final Label lblQuestionPrompt = new Label(game.questions[game.qItr].getQuestionPrompt(), game.skin);
@@ -49,7 +49,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblAns.setPosition(0, 0);
 		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tblAns);
-		tblAns.setDebug(true);
+		//tblAns.setDebug(true);
 		
 		// create label for answer instructions
 		final Label lblAns = new Label("Will you invest in this product?", game.skin);

@@ -22,7 +22,7 @@ public class EndingScreen extends AbstractScreen {
 		final Table tbl = new Table();
 		tbl.setFillParent(true);
 		stage.addActor(tbl);
-		tbl.setDebug(true);
+		//tbl.setDebug(true);
 		
 		// create label with player's final score
 		String scoreDisplay = "You got " + game.player.getScore() + " out of " 
