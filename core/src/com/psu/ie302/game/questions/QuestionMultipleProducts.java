@@ -9,6 +9,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 	private Product product1;
 	private Product product2;
 	private double irrDiff;
+	private String questionPrompt2;
 	
 	
 	public QuestionMultipleProducts(Product prod1, Product prod2, int cashflowYears) {
@@ -25,40 +26,53 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		this.MARR = Player.generateMARR();
 		
 		this.setQuestionPrompt();
+		this.setQuestionPrompt2();
+		
 		this.setCorrectAnswer();
 	}
 	
 	@Override
+	// This prompt is actually for product 1
 	public void setQuestionPrompt() {
 		
-		this.questionPrompt = "Two investors enter the Shark Tank with the following products:\n\n"
+		this.questionPrompt = "You are presented with the first product:\n"
 		
-		+ "FIRST PRODUCT\n"
-		+ "\tProduct name: " + this.product1.getName() + "\n"
-		+ "\tCompany: " + this.product1.getCompany() + "\n"
-		+ "\tDescription: " + this.product1.getDescription() + "\n"
+		+ "    Product name: " + this.product1.getName() + "\n"
+		+ "    Company: " + this.product1.getCompany() + "\n"
+		+ "    Description: " + this.product1.getDescription() + "\n\n"
+		
 		+ this.product1.getCompany() + " is looking for an investment of $" 
-		+ this.product1.displayInitialInvestment() + ".\n"
+		+ this.product1.displayInitialInvestment() + ". "
 		+ this.product1.getCompany() + " projects that with this investment in year 0, "
-		+ "you will receive the following cash flows:\n"
+				+ "you will receive the following cash flows: "
 		+ this.product1.displayCashflows()
-		+ "The IRR is " + ProductCalculations.displayIRR(this.product1.getIRR()) + "\n\n"
 		
-		+ "SECOND PRODUCT\n"
-		+ "\tProduct name: " + this.product2.getName() + "\n"
-		+ "\tCompany: " + this.product2.getCompany() + "\n"
-		+ "\tDescription: " + this.product2.getDescription() + "\n"
+		+ "The IRR is " + ProductCalculations.displayIRR(this.product1.getIRR()) + ". "
+				+ "As an investor, you have set your MARR to " + this.displayMARR() + ".";
+	}
+	
+	// This prompt is for product 2
+	public void setQuestionPrompt2() {
+		
+		this.questionPrompt2 = "You are also presented with the second product:\n"
+		
+		+ "    Product name: " + this.product2.getName() + "\n"
+		+ "    Company: " + this.product2.getCompany() + "\n"
+		+ "    Description: " + this.product2.getDescription() + "\n\n"
+		
 		+ this.product2.getCompany() + " is looking for an investment of $" 
-		+ this.product2.displayInitialInvestment() + ".\n"
+		+ this.product2.displayInitialInvestment() + ". "
 		+ this.product2.getCompany() + " projects that with this investment in year 0, "
-		+ "you will receive the following cash flows:\n"
+				+ "you will receive the following cash flows: "
 		+ this.product2.displayCashflows()
-		+ "The IRR is " + ProductCalculations.displayIRR(this.product2.getIRR()) + "\n\n"
-				
-		+ "As an investor, you have set your MARR to " + this.displayMARR() +".\n"
 		
-		+ "Do you want to invest in either of these products?\n"
-		+ "\t(0 = neither, 1 = first product, 2 = second product, 3 = either)";
+		+ "The IRR is " + ProductCalculations.displayIRR(this.product2.getIRR()) + ". "
+		+ "Your MARR is the same as for product 1.";
+	}
+	
+	// get question prompt for product 2
+	public String getQuestionPrompt2() {
+		return this.questionPrompt2;
 	}
 
 	@Override

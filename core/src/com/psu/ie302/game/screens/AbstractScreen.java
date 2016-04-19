@@ -32,6 +32,7 @@ public abstract class AbstractScreen implements Screen {
 	/*
 	 *	Switch to the game screen corresponding to the given question type 
 	 */
+	// TODO: handle the case where there are no more products and so we must switch to the end screen
 	protected void switchToQuestionScreen(IE302Game game) {
 		if (game.questions[game.qItr].getClass().getName() == "com.psu.ie302.game.questions.QuestionSingleProduct") {
 			game.setScreen(new SingleProductQuestionScreen(game));
