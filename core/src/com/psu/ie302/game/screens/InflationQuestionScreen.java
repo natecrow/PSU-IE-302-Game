@@ -20,7 +20,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		tableQuestion.setSize(IE302Game.VIRTUAL_WIDTH,
 				2 * IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tableQuestion);
-		tableQuestion.setDebug(true);
+		//tableQuestion.setDebug(true);
 		
 		// create label for the question
 		final Label labelQuestion = new Label(
@@ -39,7 +39,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		tableAns.setPosition(0, 0);
 		tableAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tableAns);
-		tableAns.setDebug(true);
+		//tableAns.setDebug(true);
 		
 		// create label for answer instructions
 		final Label labelAns = new Label(
@@ -50,7 +50,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create sub-table to hold input and button
 		final Table tableSubAns = new Table();
-		tableSubAns.setDebug(true);
+		//tableSubAns.setDebug(true);
 		
 		// create text field input for answer
 		final TextField textFieldAns = new TextField("", game.skin);
@@ -77,15 +77,13 @@ public class InflationQuestionScreen extends AbstractScreen {
 		btnAns.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor btnAns) {
-				String ans = textFieldAns.getText();
 				String resultText = 
 						game.questions[game.qItr].checkAndDisplayAnswerResults(
-								ans,
+								textFieldAns.getText(),
 								game.player);
-
 				// display results
 				// dispose and switch to next question when player is ready
-				displayResults(tableAns, resultText);
+				displayResultsAndSwitch(tableAns, resultText);
 			}
 		});
 		

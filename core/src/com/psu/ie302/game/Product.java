@@ -52,9 +52,22 @@ public class Product {
 	public String displayCashflows() {
 		String result = "";
 		for (int i = 1; i < this.cashflows.length; i++) {
-			result += "\t$" + this.cashflows[i]
-					+ " in year " + i + "\n";
+			result += "$" + this.cashflows[i]
+					+ " in year " + i;
+			
+			// if the current CF is not the last one, 
+			// then add a comma after it
+			if (i < this.cashflows.length - 2) {
+				result += ", ";
+			}
+			
+			// if the current cash flow is the 2nd-to-last one,
+			// then add an 'and' between it and the last one
+			if (i == this.cashflows.length - 2) {
+				result += " and ";
+			}
 		}
+		result += ". ";
 		return result;
 	}
 	

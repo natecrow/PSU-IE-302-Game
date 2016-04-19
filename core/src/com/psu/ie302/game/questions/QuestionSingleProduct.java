@@ -23,31 +23,27 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	@Override
 	public void setQuestionPrompt() {
-		this.questionPrompt = "An investor enters the Shark Tank with the following product:\n"
+		this.questionPrompt = "You are presented with the following product:\n"
 				
-				+ "\tProduct name: " + this.product.getName() + "\n"
-				+ "\tCompany: " + this.product.getCompany() + "\n"
-				+ "\tDescription: " + this.product.getDescription() + "\n"
+				+ "    Product name: " + this.product.getName() + "\n"
+				+ "    Company: " + this.product.getCompany() + "\n"
+				+ "    Description: " + this.product.getDescription() + "\n\n"
 				
 				+ this.product.getCompany() + " is looking for an investment of $" 
-				+ this.product.displayInitialInvestment() + ".\n"
+				+ this.product.displayInitialInvestment() + ". "
 				+ this.product.getCompany() + " projects that with this investment in year 0, "
-				+ "you will receive the following cash flows:\n"
+				+ "you will receive the following cash flows: "
 				+ this.product.displayCashflows()
 				
-				+ "As an investor, you have set your MARR to " + this.displayMARR() +".\n"
-				
-				+ "Do you want to invest in this product? (Y = yes, N = no, D = doesn't matter)";
+				+ "As an investor, you have set your MARR to " + this.displayMARR() +".";
 	}
 	
 	@Override
 	public void setCorrectAnswer() {
-		if (this.product.getIRR() > this.MARR) {
+		if (this.product.getIRR() >= this.MARR) {
 			this.correctAnswer = "Y";
-		} else if (this.product.getIRR() < this.MARR) {
+		} else  {
 			this.correctAnswer = "N";
-		} else { // IRR == MARR
-			this.correctAnswer = "D";
 		}
 	}
 	
@@ -59,35 +55,35 @@ public class QuestionSingleProduct extends QuestionProducts {
 		// if answer is correct...
 		if (this.checkAnswer(ans)) {
 			// ... and player invested in one or both, then player wins money
-			if (ans.equals("Y") || ans.equals("D")) {
+			if (ans.equals("Y")) {
 				player.addScore(1);
-				results += "Wise investment - "
-						+ "the product paid off! You've earned $100.\n";
+				results += "Wise investment - " 
+						+ "you are likely to gain profit on that product!\n";
 			}
 			// ... and player didn't invest, then player doesn't lose anything
 			else {
-				results += "That product ended up failing, so"
-						+ " good thing you didn't invest in it!\n";
+				results += "Good thing you didn't invest; " 
+						+ "you probably would have lost money on that product.\n";
 				player.addScore(1);
 			}
 		}
 		// if answer is incorrect...
 		else {
 			// ... and player invested, then player loses money
-			if (ans.equals("Y") || ans.equals("D")) {
-				player.addScore(0);
-				results += "Too bad, the product flopped. You lost $100.\n";
+			if (ans.equals("Y")) {
+				//player.addScore(0);
+				results += "Bad investment - " 
+						+ "you spent more than you'll likely gain on that product!\n";
 			}
 			// ... and player did not invest, then player doesn't win anything
 			else {
-				results += "Whoops! That product actually ended up doing well. "
-						+ "You missed out on the payoff, "
-						+ "but at least you didn't lose anything.\n";
+				results += "Oops! You probably would have " 
+						+ "gained profit if had you invested in that product.\n";
 			}
 		}
 		
-		results += "The correct choice was: " + this.correctAnswer + "\n"
-				+ "(The correct IRR was: " + ProductCalculations.displayIRR(this.product.getIRR()) + ")\n";
+		results += "(The correct IRR is: "
+				+ ProductCalculations.displayIRR(this.product.getIRR()) + ")";
 	
 		return results;
 	}
