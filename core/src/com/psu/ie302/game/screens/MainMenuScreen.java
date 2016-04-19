@@ -97,11 +97,11 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		// create array of questions
 		game.questions = new Question[8];
-		game.questions[0] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
+		game.questions[4] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
 		game.questions[1] = new QuestionInflationType1();
 		game.questions[2] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
 		game.questions[3] = new QuestionInflationType1();
-		game.questions[4] = new QuestionMultipleProducts(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
+		game.questions[0] = new QuestionMultipleProducts(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
 				this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
 				3);
 		game.questions[5] = new QuestionInflationType2();

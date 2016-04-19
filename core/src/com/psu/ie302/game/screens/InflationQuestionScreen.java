@@ -74,6 +74,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		// with the correct answer and display the results.
 		// Then, increment to the next question and switch to the
 		// corresponding screen.
+		// TODO: make it so user can hit the 'Enter' key too
 		btnAns.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor btnAns) {

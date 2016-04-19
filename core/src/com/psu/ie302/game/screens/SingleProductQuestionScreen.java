@@ -27,7 +27,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblImg.defaults().expand().fill();
 		
 		
-		// create table to hold description and info sub-tables for product
+		// create table to hold info for product
 		final Table tblProdInfo = new Table();
 		tblProdInfo.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 3);
 		tblProdInfo.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
@@ -52,7 +52,7 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblAns.setDebug(true);
 		
 		// create label for answer instructions
-		final Label lblAns = new Label("Do you want to invest in this product?", game.skin);
+		final Label lblAns = new Label("Will you invest in this product?", game.skin);
 		lblAns.setWrap(true);
 		lblAns.setAlignment(Align.center);
 		
