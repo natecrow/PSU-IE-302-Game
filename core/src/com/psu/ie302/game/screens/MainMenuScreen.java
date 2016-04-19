@@ -36,11 +36,11 @@ public class MainMenuScreen extends AbstractScreen {
 		tableTitle.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 2);
 		tableTitle.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 2);
 		stage.addActor(tableTitle);
-		tableTitle.setDebug(true);
+		//tableTitle.setDebug(true);
 		
 		// create title label
 		//TODO: add bigger font to skin or create a title image to import
-		labelTitle = new Label("PSU IE Shark Tank", game.skin);
+		labelTitle = new Label("Penn State Shark Tank", game.skin);
 		labelTitle.setFontScale(3.0f);
 		labelTitle.setAlignment(Align.center);
 		
@@ -52,7 +52,7 @@ public class MainMenuScreen extends AbstractScreen {
 		tableBtns.setPosition(0, 0);
 		tableBtns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 2);
 		stage.addActor(tableBtns);
-		tableBtns.setDebug(true);
+		//tableBtns.setDebug(true);
 		
 		// create play button
 		btnPlay = new TextButton("Play", game.skin, "default");
@@ -97,8 +97,8 @@ public class MainMenuScreen extends AbstractScreen {
 		
 		// create array of questions
 		game.questions = new Question[8];
-		game.questions[0] = new QuestionInflationType1();
-		game.questions[1] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
+		game.questions[0] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
+		game.questions[1] = new QuestionInflationType1();
 		game.questions[2] = new QuestionSingleProduct(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
 		game.questions[3] = new QuestionInflationType1();
 		game.questions[4] = new QuestionMultipleProducts(this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],

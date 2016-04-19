@@ -39,11 +39,11 @@ public class QuestionInflationType2 extends QuestionInflation {
 			actualOrConstantDollars = "constant";
 		}
 		
-		this.questionPrompt = "The annual profit for a company is $" + this.annualProfit + ".\n"
-				+ "Given a market interest rate of " + this.i*100.0 + "%,\n"
-				+ "an inflation-free interest rate of " + this.iDelta*100.0 + "%,\n"
-				+ "a growth rate of " + this.g*100.0 + "%,\n"
-				+ "and an inflation-free growth rate of " + this.gDelta*100.0 + "%,\n"
+		this.questionPrompt = "The annual profit for a company is $" + this.annualProfit + ". "
+				+ "Given a market interest rate of " + this.i*100.0 + "%, "
+				+ "an inflation-free interest rate of " + this.iDelta*100.0 + "%, "
+				+ "a growth rate of " + this.g*100.0 + "%, "
+				+ "and an inflation-free growth rate of " + this.gDelta*100.0 + "%, "
 				+ "how much will the company earn in " + actualOrConstantDollars 
 				+ " dollars after " + this.n + " years?";
 	}

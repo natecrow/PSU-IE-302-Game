@@ -49,7 +49,7 @@ public abstract class AbstractScreen implements Screen {
 	 * Also returns true when the player has clicked to move on to the 
 	 * next screen
 	 */
-	protected void displayResults(Table tbl, String resultTxt) {
+	protected void displayResultsAndSwitch(Table tbl, String resultTxt) {
 		tbl.clearChildren();
 		
 		// Create and display label for answer results
@@ -66,10 +66,10 @@ public abstract class AbstractScreen implements Screen {
 		tbl.add(labelResults).expandX().fill();
 		tbl.row();
 		tbl.add(btnNextQuestion).size(150f, 30f);
+		//tbl.setDebug(true);
 		
-		// Keep checking if player has clicked 'next' yet.
-		// Once they do, then return true.
-		// TODO: switch screens in calling class and figure out how to notify from here
+		// Check if player has clicked 'next' yet.
+		// Once they do, then dispose of objects and switch screens to next question.
 		btnNextQuestion.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor btnNextQuestion) {
