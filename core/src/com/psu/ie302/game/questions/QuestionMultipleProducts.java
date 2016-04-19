@@ -80,20 +80,24 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		
 		// case 1: both IRRs < MARR
 		//	===> reject both products
-		if (this.product1.getIRR() < this.MARR && this.product2.getIRR() < this.MARR) {
+		if (this.product1.getIRR() < this.MARR 
+				&& this.product2.getIRR() < this.MARR) {
 			this.correctAnswer = "0";
 		}
 		// case 2: one IRR > MARR, other IRR < MARR
 		//	===> accept the product with IRR > MARR
-		else if (this.product1.getIRR() > this.MARR && this.product2.getIRR() < this.MARR) {
+		else if (this.product1.getIRR() > this.MARR 
+				&& this.product2.getIRR() < this.MARR) {
 			this.correctAnswer = "1";
 		}
-		else if (this.product1.getIRR() < this.MARR && this.product2.getIRR() > this.MARR) {
+		else if (this.product1.getIRR() < this.MARR 
+				&& this.product2.getIRR() > this.MARR) {
 			this.correctAnswer = "2";
 		}
 		// case 3: both IRRs > MARR
 		//	===> use Incremental-investment analysis
-		else if (this.product1.getIRR() >= this.MARR && this.product2.getIRR() >= this.MARR) {
+		else if (this.product1.getIRR() >= this.MARR 
+				&& this.product2.getIRR() >= this.MARR) {
 			
 			// 1. CALCULATE DIFFERENCE OF THE CASH FLOWS
 			
@@ -151,36 +155,52 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		
 		// if answer is correct ...
 		if (this.checkAnswer(ans)) {
+			player.addScore(1);
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
-				player.addScore(1);
-				results += "Wise investment - "
-						+ "that product(s) paid off! You've earned $100.\n";
+				results += "Wise investment - " 
+						+ "you are likely to gain profit on that product!\n";
 			} 
 			// ... and player didn't invest, then player doesn't lose anything
 			else {
-				results += "Both products ended up failing, so"
-						+ " good thing you didn't invest in either of them!\n";
-				player.addScore(1);
+				results += "Good thing you didn't invest; " 
+						+ "you probably would have lost money on either product.\n";
 			}
 		}
 		// if answer is incorrect...
 		else {
 			// ... and player invested, then player loses money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
-				player.addScore(0);
-				results += "Too bad, the product flopped. You lost $100.\n";
+				results += "Bad investment - " 
+						+ "you spent more than you'll likely gain on that product!\n";
 			}
 			// ... and player did not invest, then player doesn't win anything
 			else {
-				results += "Whoops! That product(s) actually ended up doing well. "
-						+ "You missed out on the payoff, "
-						+ "but at least you didn't lose anything.\n";
+				results += "Oops! You probably would have " 
+						+ "gained profit if had you invested in that product.\n";
 			}
 		}
 		
-		results += "The correct choice was: " + this.correctAnswer + "\n"
-				+ "(The correct combined IRR (if any) was: " + ProductCalculations.displayIRR(this.irrDiff) + ")\n";
+		results += "The best investment is: ";
+		
+		// display correct answer as a string corresponding to the numerical answer
+		if (this.correctAnswer == "0") {
+			results += "Neither product.";
+		} else if (this.correctAnswer == "1") {
+			results += "The first product.";
+		} else if (this.correctAnswer == "2") {
+			results += "The second product.";
+		} else if (this.correctAnswer == "3") {
+			results += "Either product.";
+		}
+		
+		// display combined IRR if the difference in cash flows
+		if (this.product1.getIRR() >= this.MARR 
+				&& this.product2.getIRR() >= this.MARR) {
+			results += "\n(The correct IRR of the differences between the " 
+					+ "cash flows of the two products is: " 
+					+ ProductCalculations.displayIRR(this.irrDiff) + ")";
+		}
 	
 		return results;
 	}

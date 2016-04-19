@@ -51,15 +51,15 @@ public class QuestionInflationType2 extends QuestionInflation {
 	@Override
 	public void setCorrectAnswer() {
 		if (actualValue) {
-			this.correctAnswer = String.valueOf(this.annualProfit 
-					* (1 - (Math.pow(1 + this.g, n))) 
-					* Math.pow(1 + this.i, (-n)) 
-					/ (this.i - this.g));
+			this.correctAnswer = String.valueOf( this.annualProfit 
+					* (1 - (Math.pow(1 + this.g, n) 
+					* Math.pow(1 + this.i, (-n))))
+					/ (this.i - this.g) );
 		} else {
-			this.correctAnswer = String.valueOf(this.annualProfit 
-					* (1 - (Math.pow(1 + this.gDelta, n))) 
-					* Math.pow(1 + this.iDelta, (-n)) 
-					/ (this.iDelta - this.gDelta));			
+			this.correctAnswer = String.valueOf( this.annualProfit 
+					* (1 - (Math.pow(1 + this.gDelta, n) 
+					* Math.pow(1 + this.iDelta, (-n))))
+					/ (this.iDelta - this.gDelta) );		
 		}
 	}
 

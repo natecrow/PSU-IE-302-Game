@@ -54,9 +54,9 @@ public class QuestionSingleProduct extends QuestionProducts {
 		
 		// if answer is correct...
 		if (this.checkAnswer(ans)) {
+			player.addScore(1);
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("Y")) {
-				player.addScore(1);
 				results += "Wise investment - " 
 						+ "you are likely to gain profit on that product!\n";
 			}
@@ -64,14 +64,12 @@ public class QuestionSingleProduct extends QuestionProducts {
 			else {
 				results += "Good thing you didn't invest; " 
 						+ "you probably would have lost money on that product.\n";
-				player.addScore(1);
 			}
 		}
 		// if answer is incorrect...
 		else {
 			// ... and player invested, then player loses money
 			if (ans.equals("Y")) {
-				//player.addScore(0);
 				results += "Bad investment - " 
 						+ "you spent more than you'll likely gain on that product!\n";
 			}
