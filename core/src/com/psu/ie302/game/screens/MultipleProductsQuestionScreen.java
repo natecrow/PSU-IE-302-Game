@@ -90,7 +90,9 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		tblAns.setDebug(true);
 		
 		// create label for answer instructions
-		final Label lblAns = new Label("Which product will you invest in?", game.skin);
+		String qPrompt = "Which product will you invest in?\n"
+				+ "(Click on a box and scroll if you cannot see all the product info.)";
+		final Label lblAns = new Label(qPrompt, game.skin);
 		lblAns.setWrap(true);
 		lblAns.setAlignment(Align.center);
 		

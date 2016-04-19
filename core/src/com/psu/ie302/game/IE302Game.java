@@ -1,7 +1,6 @@
 package com.psu.ie302.game;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,7 +23,6 @@ public class IE302Game extends Game {
 	@Override
 	public void create () {
 		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		reader = new BufferedReader(new InputStreamReader(System.in));
 		this.setScreen(new MainMenuScreen(this));
 	}
 	
