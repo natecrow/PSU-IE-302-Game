@@ -72,7 +72,7 @@ public class MainMenuScreen extends AbstractScreen {
 			public void changed (ChangeEvent event, Actor btnPlay) {
 				initGameInfo();
 				dispose();
-				switchToQuestionScreen(game);
+				switchToNextScreen(game);
 			}
 		});
 	}
@@ -109,9 +109,6 @@ public class MainMenuScreen extends AbstractScreen {
 						this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
 						3);
 		game.questions[7] = new QuestionInflationType2();
-		
-		// display how much money player has so far
-		//System.out.println("Your starting amount: $" + this.game.player.getScore() + "\n");
 		
 		// set question iterator
 		game.qItr = 0;

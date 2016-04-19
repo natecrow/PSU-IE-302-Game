@@ -33,15 +33,26 @@ public abstract class AbstractScreen implements Screen {
 	 *	Switch to the game screen corresponding to the given question type 
 	 */
 	// TODO: handle the case where there are no more products and so we must switch to the end screen
-	protected void switchToQuestionScreen(IE302Game game) {
-		if (game.questions[game.qItr].getClass().getName() == "com.psu.ie302.game.questions.QuestionSingleProduct") {
-			game.setScreen(new SingleProductQuestionScreen(game));
-		}
-		else if (game.questions[game.qItr].getClass().getName() == "com.psu.ie302.game.questions.QuestionMultipleProducts") {
-			game.setScreen(new MultipleProductsQuestionScreen(game));
-		}
-		else {	// otherwise it must be an inflation question
-			game.setScreen(new InflationQuestionScreen(game));
+	protected void switchToNextScreen(IE302Game game) {
+		
+		// first, if there are no more questions left, then switch to ending screen
+		if (game.qItr >= game.questions.length) {
+			game.setScreen(new EndingScreen(game));
+		} else { // otherwise, switch to the next question screen
+			// single product question
+			if (game.questions[game.qItr].getClass().getName() 
+					== "com.psu.ie302.game.questions.QuestionSingleProduct") {
+				game.setScreen(new SingleProductQuestionScreen(game));
+			}
+			// multiple products question
+			else if (game.questions[game.qItr].getClass().getName() 
+					== "com.psu.ie302.game.questions.QuestionMultipleProducts") {
+				game.setScreen(new MultipleProductsQuestionScreen(game));
+			}
+			// otherwise it must be an inflation question
+			else {
+				game.setScreen(new InflationQuestionScreen(game));
+			}
 		}
 	}
 	
@@ -76,7 +87,7 @@ public abstract class AbstractScreen implements Screen {
 			public void changed (ChangeEvent event, Actor btnNextQuestion) {
 				game.qItr++;
 				dispose();
-				switchToQuestionScreen(game);
+				switchToNextScreen(game);
 			}
 		});
 	}
