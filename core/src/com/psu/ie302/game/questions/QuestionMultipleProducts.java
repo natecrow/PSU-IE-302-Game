@@ -181,7 +181,6 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			}
 		}
 		
-		// TODO: display answer as string instead of number
 		results += "The best investment is: ";
 		
 		// display correct answer as a string corresponding to the numerical answer

@@ -19,7 +19,7 @@ public abstract class AbstractScreen implements Screen {
 	protected IE302Game game;
 	protected Stage stage;
 	
-	protected AbstractScreen(IE302Game game) {
+	protected AbstractScreen(final IE302Game game) {
 		this.game = game;
 		
 		OrthographicCamera camera = new OrthographicCamera();

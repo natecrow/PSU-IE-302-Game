@@ -18,7 +18,7 @@ public abstract class QuestionInflation extends Question {
 		} else {
 			result += "WRONG! ";
 		}
-		result += "The correct dollar amount is: " + this.correctAnswer + "\n";
+		result += "The correct dollar amount is: $" + this.correctAnswer + "\n";
 	
 		return result;
 	}
