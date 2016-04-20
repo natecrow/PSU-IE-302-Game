@@ -16,11 +16,10 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create table for the question space
 		final Table tableQuestion = new Table();
-		tableQuestion.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 3);
+		tableQuestion.setPosition(0, 0.2f * IE302Game.VIRTUAL_HEIGHT);
 		tableQuestion.setSize(IE302Game.VIRTUAL_WIDTH,
-				2 * IE302Game.VIRTUAL_HEIGHT / 3);
+				0.8f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tableQuestion);
-		//tableQuestion.setDebug(true);
 		
 		// create label for the question
 		final Label labelQuestion = new Label(
@@ -37,9 +36,8 @@ public class InflationQuestionScreen extends AbstractScreen {
 		// create table for answer space
 		final Table tableAns = new Table();
 		tableAns.setPosition(0, 0);
-		tableAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
+		tableAns.setSize(IE302Game.VIRTUAL_WIDTH, 0.2f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tableAns);
-		//tableAns.setDebug(true);
 		
 		// create label for answer instructions
 		final Label labelAns = new Label(
@@ -70,6 +68,11 @@ public class InflationQuestionScreen extends AbstractScreen {
 		tableAns.add(tableSubAns);
 		
 		
+		// debug options
+//		tableQuestion.setDebug(true);
+//		tableAns.setDebug(true);
+		
+		
 		// When enter button is clicked, check the answer in the text field 
 		// with the correct answer and display the results.
 		// Then, increment to the next question and switch to the
@@ -87,14 +90,6 @@ public class InflationQuestionScreen extends AbstractScreen {
 				displayResultsAndSwitch(tableAns, resultText);
 			}
 		});
-		
-//		// display question prompt
-//		System.out.println("Question " + (this.game.qItr + 1) + " out of " 
-//				+ this.game.questions.length + "\n\n"
-//				+ this.game.questions[this.game.qItr].getQuestionPrompt());
-//		
-//		// display how much money player has so far
-//		System.out.println("Your money so far: $" + this.game.player.getScore() + "\n");
 	}
 
 	@Override

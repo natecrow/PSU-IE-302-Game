@@ -32,7 +32,6 @@ public abstract class AbstractScreen implements Screen {
 	/*
 	 *	Switch to the game screen corresponding to the given question type 
 	 */
-	// TODO: handle the case where there are no more products and so we must switch to the end screen
 	protected void switchToNextScreen(IE302Game game) {
 		
 		// first, if there are no more questions left, then switch to ending screen

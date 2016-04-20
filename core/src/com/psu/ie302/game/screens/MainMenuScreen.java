@@ -93,7 +93,7 @@ public class MainMenuScreen extends AbstractScreen {
 		Json json = new Json();
 		@SuppressWarnings("unchecked")
 		ArrayList<Product> productsList = json.fromJson(ArrayList.class, Product.class,
-				Gdx.files.local("products.json"));
+				Gdx.files.internal("products.json"));
 		
 		// Convert Array List of products into a regular array
 		game.products = new Product[productsList.size()];

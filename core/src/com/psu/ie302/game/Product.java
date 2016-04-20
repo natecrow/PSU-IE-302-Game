@@ -7,6 +7,7 @@ public class Product {
 	private String name;
 	private String company;
 	private String description;
+	private String imgFilename;
 	private double IRR;
 	private int[] cashflows;
 	
@@ -98,6 +99,14 @@ public class Product {
 	
 	public void setDescription(String prodDesc) {
 		this.description = prodDesc;
+	}
+	
+	public String getImgFilename() {
+		return this.imgFilename;
+	}
+	
+	public void setImgFilename(String imgFn) {
+		this.imgFilename = imgFn;
 	}
 	
 	// use for background calculations

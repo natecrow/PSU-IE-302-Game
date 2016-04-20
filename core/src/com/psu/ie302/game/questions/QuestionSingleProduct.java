@@ -12,6 +12,10 @@ public class QuestionSingleProduct extends QuestionProducts {
 	private Product product;
 	
 	
+	public Product getProduct() {
+		return product;
+	}
+
 	public QuestionSingleProduct(Product prod) {
 		this.product = prod;
 		this.product.generateCashflows(3);
