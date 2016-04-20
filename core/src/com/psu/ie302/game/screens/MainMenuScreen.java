@@ -3,12 +3,12 @@ package com.psu.ie302.game.screens;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Json;
 import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.Player;
@@ -22,31 +22,29 @@ import com.psu.ie302.game.questions.QuestionSingleProduct;
 
 public class MainMenuScreen extends AbstractScreen {
 	
+	private Texture titleTex;
+	
 	public MainMenuScreen(final IE302Game game) {
 		super(game);
 		
 		// create table for the title
 		final Table tableTitle = new Table();
-		tableTitle.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 2);
-		tableTitle.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 2);
+		tableTitle.setFillParent(true);
 		stage.addActor(tableTitle);
-		//tableTitle.setDebug(true);
 		
 		// create title label
-		//TODO: add bigger font to skin or create a title image to import
-		final Label labelTitle = new Label("Penn State Shark Tank", game.skin);
-		labelTitle.setFontScale(3.0f);
-		labelTitle.setAlignment(Align.center);
+		titleTex = new Texture(Gdx.files.internal("penn_state_shark_tank_bg.jpg"));
+		final Image titleImg = new Image(titleTex);
 		
 		// add title label to its table
-		tableTitle.add(labelTitle);
+		tableTitle.add(titleImg);
+		
 		
 		// create table for menu buttons
 		final Table tableBtns = new Table();
 		tableBtns.setPosition(0, 0);
-		tableBtns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 2);
+		tableBtns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
 		stage.addActor(tableBtns);
-		//tableBtns.setDebug(true);
 		
 		// create play button
 		final TextButton btnPlay = new TextButton("Play", game.skin, "default");
@@ -59,6 +57,12 @@ public class MainMenuScreen extends AbstractScreen {
 		tableBtns.add(btnPlay);
 		tableBtns.row();
 		tableBtns.add(btnInstructions);
+		
+		
+		// debug options
+//		tableTitle.setDebug(true);
+//		tableBtns.setDebug(true);
+		
 		
 		initGameInfo();
 		
@@ -118,6 +122,7 @@ public class MainMenuScreen extends AbstractScreen {
 	@Override
 	public void dispose() {
 		super.dispose();
+		titleTex.dispose();
 	}
 
 }
