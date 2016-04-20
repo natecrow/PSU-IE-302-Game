@@ -54,6 +54,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		// create text field input for answer
 		final TextField textFieldAns = new TextField("", game.skin);
 		
+		// TODO: accept negative numbers too
 		// text field will only accept integers or decimal point numbers
 		textFieldAns.setTextFieldFilter(new TextFieldFilter() {
 			private char[] accepted = new char[]

@@ -1,5 +1,7 @@
 package com.psu.ie302.game.questions;
 
+import com.badlogic.gdx.math.MathUtils;
+
 /*
  * Question for asking player to calculate a past or future value given
  * a current amount of money, an inflation rate per year, and no. of years
@@ -8,21 +10,24 @@ public class QuestionInflationType2 extends QuestionInflation {
 
 	private int annualProfit;	// can be either current or actual
 	private boolean actualValue;// 1/true = actual; 0/false = constant
-	private double i;			// market interest rate
-	private double iDelta;		// inflation-free interest rate
-	private double g;			// growth rate
-	private double gDelta;		// inflation-free growth rate
+	private float i;			// market interest rate
+	private float iDelta;		// inflation-free interest rate
+	private float g;			// growth rate
+	private float gDelta;		// inflation-free growth rate
 	private int n;				// number of years
 	
 	
 	public QuestionInflationType2() {
-		this.annualProfit = randomlyGenerateInt(5000, 10000000);
-		this.actualValue = this.randomlyGenerateTrueOrFalse();
-		this.i = randomlyGenerateDouble(0.0, 0.1);
-		this.iDelta = randomlyGenerateDouble(0.0, 0.1);
-		this.g = randomlyGenerateDouble(0.0, 0.1);
-		this.gDelta = randomlyGenerateDouble(0.0, 0.1);
-		this.n = randomlyGenerateInt(1, 20);
+		super();
+		
+		this.annualProfit = MathUtils.random(5000, 10000000);
+		this.actualValue = MathUtils.randomBoolean();
+		this.i = MathUtils.random(0f, 0.1f);
+		this.iDelta = MathUtils.random(0f, 0.1f);
+		this.g = MathUtils.random(0f, 0.1f);
+		this.gDelta = MathUtils.random(0f, 0.1f);
+		this.n = MathUtils.random(1, 20);
+		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
 	}

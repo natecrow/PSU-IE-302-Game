@@ -17,10 +17,13 @@ public class QuestionSingleProduct extends QuestionProducts {
 	}
 
 	public QuestionSingleProduct(Product prod) {
+		super();
+		
 		this.product = prod;
 		this.product.generateCashflows(3);
 		this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
 		this.MARR = Player.generateMARR();
+		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
 	}

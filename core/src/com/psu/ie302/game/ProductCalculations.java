@@ -48,6 +48,10 @@ public final class ProductCalculations {
 	}
 	
 	// randomly pick an index for a product from the product list
+	// TODO: make sure the same product is not picked more than once
+	// (Could keep list of products picked by indices and check that
+	//	an index is not in the list before returning it. Would have to
+	//	refresh product index list when starting a new game.)
 	public static int randomlyPickProduct(int max) {
 		Random rand = new Random();
 		return (rand.nextInt(max + 1));

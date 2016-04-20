@@ -13,6 +13,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 	
 	
 	public QuestionMultipleProducts(Product prod1, Product prod2, int cashflowYears) {
+		super();
 		
 		this.product1 = prod1;
 		this.product2 = prod2;
