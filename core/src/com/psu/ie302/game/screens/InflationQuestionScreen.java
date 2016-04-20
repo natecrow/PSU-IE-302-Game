@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.psu.ie302.game.IE302Game;
@@ -52,6 +53,28 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create text field input for answer
 		final TextField textFieldAns = new TextField("", game.skin);
+		
+		// text field will only accept integers or decimal point numbers
+		textFieldAns.setTextFieldFilter(new TextFieldFilter() {
+			private char[] accepted = new char[]
+		    		{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
+			@Override
+			public boolean acceptChar(TextField textField, char c) {
+			    for (char a : accepted) {
+			    	if (a == c) {
+			    		// if the input char is a period, then do not accept
+			    		// it if there is another period already in the text field
+			    		if (c == '.') {
+			    			if (textField.getText().contains(Character.toString('.'))) {
+			    				return false;
+			    			}
+			    		}
+			    		return true;
+			    	}
+			    }
+			    return false;
+			}
+		});
 		
 		// create enter button for text field input
 		final TextButton btnAns = new TextButton("Enter", game.skin);
