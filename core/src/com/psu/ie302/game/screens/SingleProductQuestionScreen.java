@@ -1,14 +1,22 @@
 package com.psu.ie302.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import com.psu.ie302.game.IE302Game;
+import com.psu.ie302.game.questions.QuestionSingleProduct;
 
 public class SingleProductQuestionScreen extends AbstractScreen {
+	
+	private Texture prodTex;
+	
 	
 	public SingleProductQuestionScreen(final IE302Game game) {
 		
@@ -16,23 +24,25 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 
 		// create table to hold the product image
 		final Table tblImg = new Table();
-		tblImg.setPosition(0, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
-		tblImg.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
+		tblImg.setPosition(0, 0.6f * IE302Game.VIRTUAL_HEIGHT);
+		tblImg.setSize(IE302Game.VIRTUAL_WIDTH, 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblImg);
-		//tblImg.setDebug(true);
 		
 		// create image for product
+		prodTex = new Texture(Gdx.files.internal("product_images/"
+				+ ((QuestionSingleProduct) game.questions[game.qItr]).getProduct().getImgFilename()));
+		final Image prodImg = new Image(prodTex);
+		prodImg.setScaling(Scaling.fit);
 		
 		// size and add image into its table
-		tblImg.defaults().expand().fill();
+		tblImg.add(prodImg);
 		
 		
 		// create table to hold info for product
 		final Table tblProdInfo = new Table();
-		tblProdInfo.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 3);
-		tblProdInfo.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
+		tblProdInfo.setPosition(0, 0.2f * IE302Game.VIRTUAL_HEIGHT);
+		tblProdInfo.setSize(IE302Game.VIRTUAL_WIDTH, 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblProdInfo);
-		//tblProdInfo.setDebug(true);
 		
 		// create label for product description
 		final Label lblQuestionPrompt = new Label(game.questions[game.qItr].getQuestionPrompt(), game.skin);
@@ -47,9 +57,8 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		// create table for answer area
 		final Table tblAns = new Table();
 		tblAns.setPosition(0, 0);
-		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
+		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, 0.2f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblAns);
-		//tblAns.setDebug(true);
 		
 		// create label for answer instructions
 		final Label lblAns = new Label("Will you invest in this product?", game.skin);
@@ -75,6 +84,11 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 		tblAns.add(lblAns).expandX().fill();
 		tblAns.row();
 		tblAns.add(tblSubAns);
+		
+		// debug options
+//		tblImg.setDebug(true);
+//		tblProdInfo.setDebug(true);
+//		tblAns.setDebug(true);
 		
 		
 		// When the 'yes' button is clicked, send "Y" as the player's answer
@@ -110,19 +124,12 @@ public class SingleProductQuestionScreen extends AbstractScreen {
 				displayResultsAndSwitch(tblAns, resultText);
 			}
 		});
-		
-//		// display question prompt
-//		System.out.println("Question " + (game.qItr + 1) + " out of " 
-//				+ game.questions.length + "\n\n"
-//				+ game.questions[game.qItr].getQuestionPrompt());
-
-//		// display how much money player has so far
-//		System.out.println("Your money so far: $" + this.game.player.getScore() + "\n");
 	}
-
+	
 	@Override
 	public void dispose() {
 		super.dispose();
+		prodTex.dispose();
 	}
 
 }

@@ -16,7 +16,7 @@ public class QuestionInflationType2 extends QuestionInflation {
 	
 	
 	public QuestionInflationType2() {
-		this.annualProfit = randomlyGenerateInt(5000, 10000);
+		this.annualProfit = randomlyGenerateInt(5000, 10000000);
 		this.actualValue = this.randomlyGenerateTrueOrFalse();
 		this.i = randomlyGenerateDouble(0.0, 0.1);
 		this.iDelta = randomlyGenerateDouble(0.0, 0.1);

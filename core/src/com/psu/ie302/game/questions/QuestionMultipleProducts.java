@@ -159,12 +159,12 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// ... and player invested in one or both, then player wins money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
 				results += "Wise investment - " 
-						+ "you are likely to gain profit on that product!\n";
+						+ "you are likely to gain profit on that product!";
 			} 
 			// ... and player didn't invest, then player doesn't lose anything
 			else {
 				results += "Good thing you didn't invest; " 
-						+ "you probably would have lost money on either product.\n";
+						+ "you probably would have lost money on either product.";
 			}
 		}
 		// if answer is incorrect...
@@ -172,37 +172,44 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// ... and player invested, then player loses money
 			if (ans.equals("1") || ans.equals("2") || ans.equals("3")) {
 				results += "Bad investment - " 
-						+ "you spent more than you'll likely gain on that product!\n";
+						+ "you spent more than you'll likely gain on that product!";
 			}
 			// ... and player did not invest, then player doesn't win anything
 			else {
 				results += "Oops! You probably would have " 
-						+ "gained profit if had you invested in that product.\n";
+						+ "gained profit if had you invested in that product.";
 			}
-		}
-		
-		results += "The best investment is: ";
-		
-		// display correct answer as a string corresponding to the numerical answer
-		if (this.correctAnswer == "0") {
-			results += "Neither product.";
-		} else if (this.correctAnswer == "1") {
-			results += "The first product.";
-		} else if (this.correctAnswer == "2") {
-			results += "The second product.";
-		} else if (this.correctAnswer == "3") {
-			results += "Either product.";
+			
+			results += "\nThe best investment was: ";
+			// display correct answer as a string corresponding to the numerical answer
+			if (this.correctAnswer == "0") {
+				results += "Neither product.";
+			} else if (this.correctAnswer == "1") {
+				results += "The first product.";
+			} else if (this.correctAnswer == "2") {
+				results += "The second product.";
+			} else if (this.correctAnswer == "3") {
+				results += "Either product.";
+			}
 		}
 		
 		// display combined IRR if the difference in cash flows
 		if (this.product1.getIRR() >= this.MARR 
 				&& this.product2.getIRR() >= this.MARR) {
 			results += "\n(The correct IRR of the differences between the " 
-					+ "cash flows of the two products is: " 
+					+ "cash flows of the two products is " 
 					+ ProductCalculations.displayIRR(this.irrDiff) + ")";
 		}
 	
 		return results;
+	}
+	
+	public Product getProduct1() {
+		return product1;
+	}
+
+	public Product getProduct2() {
+		return product2;
 	}
 
 }

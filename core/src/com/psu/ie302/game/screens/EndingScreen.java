@@ -38,7 +38,7 @@ public class EndingScreen extends AbstractScreen {
 		tbl.defaults().space(20f);
 		tbl.add(lblScore).expandX().fill();
 		tbl.row();
-		tbl.add(btnBackToMenu).size(150f, 30f);
+		tbl.add(btnBackToMenu).size(150f, 50f);
 		
 		
 		// add event for the 'back to menu' button

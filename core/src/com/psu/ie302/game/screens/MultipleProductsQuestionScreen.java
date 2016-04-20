@@ -1,53 +1,69 @@
 package com.psu.ie302.game.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import com.psu.ie302.game.IE302Game;
 import com.psu.ie302.game.questions.QuestionMultipleProducts;
 
 public class MultipleProductsQuestionScreen extends AbstractScreen {
 
-	// TODO: add scrollbars for product info
+	private Texture prodTex1;
+	private Texture prodTex2;
+	
+	
 	protected MultipleProductsQuestionScreen(final IE302Game game) {
 		
 		super(game);
 		
 		// create table to hold the first product image
 		final Table tblImg1 = new Table();
-		tblImg1.setPosition(0, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
-		tblImg1.setSize((IE302Game.VIRTUAL_WIDTH / 2), IE302Game.VIRTUAL_HEIGHT / 3);
+		tblImg1.setPosition(0, 0.6f * IE302Game.VIRTUAL_HEIGHT);
+		tblImg1.setSize((IE302Game.VIRTUAL_WIDTH / 2), 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblImg1);
-		//tblImg1.setDebug(true);
 		
 		// create image for first product
+		prodTex1 = new Texture(Gdx.files.internal("product_images/"
+				+ ((QuestionMultipleProducts) game.questions[game.qItr]).getProduct1().getImgFilename()));
+		final Image prodImg1 = new Image(prodTex1);
+		prodImg1.setScaling(Scaling.fit);
 		
 		// size and add first product's image into its table
 		tblImg1.defaults().expand().fill();
+		tblImg1.add(prodImg1);
 		
 		
 		// create table to hold the second product image
 		final Table tblImg2 = new Table();
-		tblImg2.setPosition(IE302Game.VIRTUAL_WIDTH / 2, (2 * IE302Game.VIRTUAL_HEIGHT) / 3);
-		tblImg2.setSize(IE302Game.VIRTUAL_WIDTH / 2, IE302Game.VIRTUAL_HEIGHT / 3);
+		tblImg2.setPosition(IE302Game.VIRTUAL_WIDTH / 2, 0.6f * IE302Game.VIRTUAL_HEIGHT);
+		tblImg2.setSize(IE302Game.VIRTUAL_WIDTH / 2, 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblImg2);
-		//tblImg2.setDebug(true);
 		
 		// create image for second product
+		prodTex2 = new Texture(Gdx.files.internal("product_images/"
+				+ ((QuestionMultipleProducts) game.questions[game.qItr]).getProduct2().getImgFilename()));
+		final Image prodImg2 = new Image(prodTex2);
+		prodImg2.setScaling(Scaling.fit);
 		
 		// size and add second product's image into its table
-		tblImg2.defaults().expand().fill();
+		tblImg2.add(prodImg2);
 		
 		
 		// create table to hold info for the first product
 		final Table tblProdInfo1 = new Table();
 		
 		// create label for first product's info
-		final Label lblQuestionPrompt1 = new Label(((QuestionMultipleProducts)game.questions[game.qItr]).getQuestionPrompt(), game.skin);
+		final Label lblQuestionPrompt1 = new Label(
+				((QuestionMultipleProducts)game.questions[game.qItr]).getQuestionPrompt(),
+				game.skin);
 		lblQuestionPrompt1.setWrap(true);
 		lblQuestionPrompt1.setAlignment(Align.left);
 		
@@ -57,8 +73,8 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		
 		// create and add scrollpane with the first product's info table
 		final ScrollPane scrollProdInfo1 = new ScrollPane(tblProdInfo1, game.skin);
-		scrollProdInfo1.setPosition(0, IE302Game.VIRTUAL_HEIGHT / 3);
-		scrollProdInfo1.setSize(IE302Game.VIRTUAL_WIDTH / 2, IE302Game.VIRTUAL_HEIGHT / 3);
+		scrollProdInfo1.setPosition(0, 0.2f * IE302Game.VIRTUAL_HEIGHT);
+		scrollProdInfo1.setSize(IE302Game.VIRTUAL_WIDTH / 2, 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		scrollProdInfo1.setupFadeScrollBars(0.5f, 0.25f);
 		stage.addActor(scrollProdInfo1);
 		
@@ -66,7 +82,9 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		final Table tblProdInfo2 = new Table();
 		
 		// create label for second product's info
-		final Label lblQuestionPrompt2 = new Label(((QuestionMultipleProducts)game.questions[game.qItr]).getQuestionPrompt2(), game.skin);
+		final Label lblQuestionPrompt2 = new Label(
+				((QuestionMultipleProducts)game.questions[game.qItr]).getQuestionPrompt2(),
+				game.skin);
 		lblQuestionPrompt2.setWrap(true);
 		lblQuestionPrompt2.setAlignment(Align.left);
 		
@@ -76,8 +94,8 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		
 		// create and add scrollpane with the second product's info table
 		final ScrollPane scrollProdInfo2 = new ScrollPane(tblProdInfo2, game.skin);
-		scrollProdInfo2.setPosition(IE302Game.VIRTUAL_WIDTH / 2, IE302Game.VIRTUAL_HEIGHT / 3);
-		scrollProdInfo2.setSize(IE302Game.VIRTUAL_WIDTH / 2, IE302Game.VIRTUAL_HEIGHT / 3);
+		scrollProdInfo2.setPosition(IE302Game.VIRTUAL_WIDTH / 2, 0.2f * IE302Game.VIRTUAL_HEIGHT);
+		scrollProdInfo2.setSize(IE302Game.VIRTUAL_WIDTH / 2, 0.4f * IE302Game.VIRTUAL_HEIGHT);
 		scrollProdInfo2.setupFadeScrollBars(0.5f, 0.25f);
 		stage.addActor(scrollProdInfo2);
 		
@@ -85,9 +103,8 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		// create table for answer area
 		final Table tblAns = new Table();
 		tblAns.setPosition(0, 0);
-		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, IE302Game.VIRTUAL_HEIGHT / 3);
+		tblAns.setSize(IE302Game.VIRTUAL_WIDTH, 0.2f * IE302Game.VIRTUAL_HEIGHT);
 		stage.addActor(tblAns);
-		//tblAns.setDebug(true);
 		
 		// create label for answer instructions
 		String qPrompt = "Which product will you invest in?\n"
@@ -123,6 +140,12 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 		tblAns.add(lblAns).expandX().fill();
 		tblAns.row();
 		tblAns.add(tblSubAns);
+		
+		
+		// debug options
+//		tblImg1.setDebug(true);
+//		tblImg2.setDebug(true);
+//		tblAns.setDebug(true);
 		
 		
 		// When the 'first product' button is clicked, send "1" as the player's answer
@@ -192,19 +215,13 @@ public class MultipleProductsQuestionScreen extends AbstractScreen {
 				displayResultsAndSwitch(tblAns, resultText);
 			}
 		});
-		
-//		// display question prompt
-//		System.out.println("Question " + (this.game.qItr + 1) + " out of " 
-//				+ this.game.questions.length + "\n\n"
-//				+ this.game.questions[this.game.qItr].getQuestionPrompt());
-//
-//		// display how much money player has so far
-//		System.out.println("Your money so far: $" + this.game.player.getScore() + "\n");
 	}
 	
 	@Override
 	public void dispose() {
 		super.dispose();
+		prodTex1.dispose();
+		prodTex2.dispose();
 	}
 
 }
