@@ -1,5 +1,8 @@
 package com.psu.ie302.game.questions;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import com.psu.ie302.game.Player;
 
 /*
@@ -9,8 +12,12 @@ public abstract class Question {
 	
 	protected String questionPrompt;
 	protected String correctAnswer;
+	protected NumberFormat nf;		// to format money as currency
 
-
+	public Question() {
+		nf = NumberFormat.getCurrencyInstance(Locale.US);
+	}
+	
 	public abstract void setQuestionPrompt();
 	public abstract void setCorrectAnswer();
 	public abstract String checkAndDisplayAnswerResults(String ans, Player player);
