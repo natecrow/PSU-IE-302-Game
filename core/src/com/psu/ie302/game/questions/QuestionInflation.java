@@ -11,13 +11,13 @@ public abstract class QuestionInflation extends Question {
 		String result = "";
 		
 		BigDecimal playerAns = new BigDecimal(ans);
-		BigDecimal correctAns = new BigDecimal(this.correctAnswer);
+		BigDecimal correctAns = new BigDecimal(correctAnswer);
 		if (playerAns.compareTo(correctAns) == 0) {
 			result += "CORRECT! ";
 			player.addScore(1);
 		} else {
 			result += "WRONG!\n"
-				+ "The correct dollar amount is: $" + this.correctAnswer;
+				+ "The correct dollar amount is: " + nf.format(correctAns);
 		}
 	
 		return result;

@@ -1,6 +1,10 @@
 package com.psu.ie302.game;
 
-import java.util.Random;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
+
+import com.badlogic.gdx.math.MathUtils;
 
 public class Product {
 
@@ -8,9 +12,8 @@ public class Product {
 	private String company;
 	private String description;
 	private String imgFilename;
-	private double IRR;
+	private BigDecimal IRR;
 	private int[] cashflows;
-	
 	
 	/*
 	 * Randomly generate the cash flows over 3 years
@@ -29,51 +32,46 @@ public class Product {
 		// create space in cash flows array for the specified number of years
 		cashflows = new int[years];
 		
-		Random rand = new Random();
-		
-		int max = 1000000; 	// max investment
-		int min = 5000;		// min investment
-		
 		// put negative initial investment into cash flow for year 0
-		this.cashflows[0] = -(rand.nextInt((max - min) + 1) + min);
+		cashflows[0] = -(MathUtils.random(5000, 1000000));
 		
 		// randomly generate and store the subsequent years of cash flows
 		for (int i = 1; i < years; i++) {
-			
 			// max: previous year's cash flow
 			// min: half of previous year's cash flow
-			max = Math.abs(cashflows[i-1]);
-			min = Math.abs(cashflows[i-1] / 2);
-
-			this.cashflows[i] = (rand.nextInt((max - min) + 1) + min);
+			cashflows[i] = MathUtils.random(Math.abs(cashflows[i-1] / 2), 
+					Math.abs(cashflows[i-1]));
 		}
 	}
 	
 	// return string of cash flow information after year zero
 	public String displayCashflows() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+		
 		String result = "";
-		for (int i = 1; i < this.cashflows.length; i++) {
-			result += "$" + this.cashflows[i]
+		
+		for (int i = 1; i < cashflows.length; i++) {
+			result += nf.format(cashflows[i])
 					+ " in year " + i;
-			
 			// if the current CF is not the last one, 
 			// then add a comma after it
-			if (i < this.cashflows.length - 2) {
+			if (i < cashflows.length - 2) {
 				result += ", ";
 			}
-			
 			// if the current cash flow is the 2nd-to-last one,
 			// then add an 'and' between it and the last one
-			if (i == this.cashflows.length - 2) {
+			if (i == cashflows.length - 2) {
 				result += " and ";
 			}
 		}
+		
 		result += ". ";
 		return result;
 	}
 	
-	public int displayInitialInvestment() {
-		return Math.abs(this.cashflows[0]);
+	public String displayInitialInvestment() {
+		NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+		return nf.format(Math.abs(cashflows[0]));
 	}
 	
 	
@@ -110,11 +108,11 @@ public class Product {
 	}
 	
 	// use for background calculations
-	public double getIRR() {
+	public BigDecimal getIRR() {
 		return this.IRR;
 	}
 	
-	public void setIRR(double prodIRR) {
+	public void setIRR(BigDecimal prodIRR) {
 		this.IRR = prodIRR;
 	}
 	

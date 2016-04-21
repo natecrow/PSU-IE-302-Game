@@ -42,7 +42,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create label for answer instructions
 		final Label labelAns = new Label(
-				"Type in your answer. Round it by 2 decimal places. No commas.",
+				"Type in your answer. Round it to 2 decimal places.",
 				game.skin);
 		labelAns.setWrap(true);
 		labelAns.setAlignment(Align.center);
@@ -105,13 +105,15 @@ public class InflationQuestionScreen extends AbstractScreen {
 		btnAns.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor btnAns) {
-				String resultText = 
-						game.questions[game.qItr].checkAndDisplayAnswerResults(
-								textFieldAns.getText(),
-								game.player);
-				// display results
-				// dispose and switch to next question when player is ready
-				displayResultsAndSwitch(tableAns, resultText);
+				if (!(textFieldAns.getText().isEmpty())) {
+					String resultText = 
+							game.questions[game.qItr].checkAndDisplayAnswerResults(
+									textFieldAns.getText(),
+									game.player);
+					// display results
+					// dispose and switch to next question when player is ready
+					displayResultsAndSwitch(tableAns, resultText);
+				}
 			}
 		});
 	}

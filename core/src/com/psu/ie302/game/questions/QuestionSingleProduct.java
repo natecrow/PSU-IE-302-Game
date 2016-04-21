@@ -1,5 +1,8 @@
 package com.psu.ie302.game.questions;
 
+import java.math.BigDecimal;
+
+import com.badlogic.gdx.math.MathUtils;
 import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.ProductCalculations;
@@ -11,7 +14,6 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	private Product product;
 	
-	
 	public Product getProduct() {
 		return product;
 	}
@@ -22,7 +24,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 		this.product = prod;
 		this.product.generateCashflows(3);
 		this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
-		this.MARR = Player.generateMARR();
+		this.MARR = BigDecimal.valueOf(MathUtils.random(0.5f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
@@ -36,7 +38,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 				+ "    Company: " + this.product.getCompany() + "\n"
 				+ "    Description: " + this.product.getDescription() + "\n\n"
 				
-				+ this.product.getCompany() + " is looking for an investment of $" 
+				+ this.product.getCompany() + " is looking for an investment of " 
 				+ this.product.displayInitialInvestment() + ". "
 				+ this.product.getCompany() + " projects that with this investment in year 0, "
 				+ "you will receive the following cash flows: "
@@ -47,7 +49,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	@Override
 	public void setCorrectAnswer() {
-		if (this.product.getIRR() >= this.MARR) {
+		if ((product.getIRR()).compareTo(MARR) >= 0) {
 			this.correctAnswer = "Y";
 		} else  {
 			this.correctAnswer = "N";

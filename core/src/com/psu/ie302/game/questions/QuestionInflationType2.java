@@ -24,10 +24,10 @@ public class QuestionInflationType2 extends QuestionInflation {
 		super();
 		
 		this.annualProfit = new BigDecimal(MathUtils.random(5000, 10000000));
-		this.i = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
-		this.iDelta = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
-		this.g = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
-		this.gDelta = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.i = BigDecimal.valueOf(MathUtils.random(0.01f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.iDelta = BigDecimal.valueOf(MathUtils.random(0.01f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.g = BigDecimal.valueOf(MathUtils.random(0.01f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.gDelta = BigDecimal.valueOf(MathUtils.random(0.01f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		this.n = MathUtils.random(1, 20);
 		this.actualValue = MathUtils.randomBoolean();
 		
@@ -53,7 +53,7 @@ public class QuestionInflationType2 extends QuestionInflation {
 		String gStr = g.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
 		String gDeltaStr = gDelta.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
 		
-		this.questionPrompt = "The annual profit for a company is $" + annualProfitStr + ". "
+		this.questionPrompt = "The annual profit for a company is " + annualProfitStr + ". "
 				+ "Given a market interest rate of " + iStr + "%, "
 				+ "an inflation-free interest rate of " + iDeltaStr + "%, "
 				+ "a growth rate of " + gStr + "%, "
@@ -74,11 +74,6 @@ public class QuestionInflationType2 extends QuestionInflation {
 					(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
 					(i.subtract(g)), MathContext.DECIMAL128)
 					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
-					
-//			this.correctAnswer = (annualProfit 
-//					* (1 - (Math.pow(1 + g, n) 
-//					* Math.pow(1 + i, (-n))))
-//					/ (i - g));
 		} else {
 			// A*(1-((1+g')^n)*((1+i')^-n)) / (i'-g')
 			// = ((A * (1 - (((1+g')^n) * (1/((1+i')^n))))) / (i'-g'))
@@ -89,15 +84,11 @@ public class QuestionInflationType2 extends QuestionInflation {
 					(iDelta.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
 					(iDelta.subtract(gDelta)), MathContext.DECIMAL128)
 					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
-//			this.correctAnswer = (annualProfit 
-//					* (1 - (Math.pow(1 + gDelta, n) 
-//					* Math.pow(1 + iDelta, (-n))))
-//					/ (iDelta - gDelta));		
 		}
 	}
 
 }
-//
+
 //// ((1+g)^n)
 //((g.add(BigDecimal.ONE)).pow(n))
 //

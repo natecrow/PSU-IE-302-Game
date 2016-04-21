@@ -1,5 +1,8 @@
 package com.psu.ie302.game.questions;
 
+import java.math.BigDecimal;
+
+import com.badlogic.gdx.math.MathUtils;
 import com.psu.ie302.game.Player;
 import com.psu.ie302.game.Product;
 import com.psu.ie302.game.ProductCalculations;
@@ -8,9 +11,8 @@ public class QuestionMultipleProducts extends QuestionProducts {
 
 	private Product product1;
 	private Product product2;
-	private double irrDiff;
+	private BigDecimal irrDiff;
 	private String questionPrompt2;
-	
 	
 	public QuestionMultipleProducts(Product prod1, Product prod2, int cashflowYears) {
 		super();
@@ -24,7 +26,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		this.product1.setIRR(ProductCalculations.calculateIRR(prod1.getCashflows()));
 		this.product2.setIRR(ProductCalculations.calculateIRR(prod2.getCashflows()));
 		
-		this.MARR = Player.generateMARR();
+		this.MARR = BigDecimal.valueOf(MathUtils.random(0.20f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
 		this.setQuestionPrompt();
 		this.setQuestionPrompt2();
@@ -42,7 +44,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		+ "    Company: " + this.product1.getCompany() + "\n"
 		+ "    Description: " + this.product1.getDescription() + "\n\n"
 		
-		+ this.product1.getCompany() + " is looking for an investment of $" 
+		+ this.product1.getCompany() + " is looking for an investment of " 
 		+ this.product1.displayInitialInvestment() + ". "
 		+ this.product1.getCompany() + " projects that with this investment in year 0, "
 				+ "you will receive the following cash flows: "
@@ -61,7 +63,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		+ "    Company: " + this.product2.getCompany() + "\n"
 		+ "    Description: " + this.product2.getDescription() + "\n\n"
 		
-		+ this.product2.getCompany() + " is looking for an investment of $" 
+		+ this.product2.getCompany() + " is looking for an investment of " 
 		+ this.product2.displayInitialInvestment() + ". "
 		+ this.product2.getCompany() + " projects that with this investment in year 0, "
 				+ "you will receive the following cash flows: "
@@ -81,24 +83,25 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		
 		// case 1: both IRRs < MARR
 		//	===> reject both products
-		if (this.product1.getIRR() < this.MARR 
-				&& this.product2.getIRR() < this.MARR) {
+		
+		if ((product1.getIRR()).compareTo(MARR) < 0 
+				&& (product2.getIRR()).compareTo(MARR) < 0) {
 			this.correctAnswer = "0";
 		}
 		// case 2: one IRR > MARR, other IRR < MARR
 		//	===> accept the product with IRR > MARR
-		else if (this.product1.getIRR() > this.MARR 
-				&& this.product2.getIRR() < this.MARR) {
+		else if ((product1.getIRR()).compareTo(MARR) > 0 
+				&& (product2.getIRR()).compareTo(MARR) < 0) {
 			this.correctAnswer = "1";
 		}
-		else if (this.product1.getIRR() < this.MARR 
-				&& this.product2.getIRR() > this.MARR) {
+		else if ((product1.getIRR()).compareTo(MARR) < 0 
+				&& (product2.getIRR()).compareTo(MARR) > 0) {
 			this.correctAnswer = "2";
 		}
 		// case 3: both IRRs > MARR
 		//	===> use Incremental-investment analysis
-		else if (this.product1.getIRR() >= this.MARR 
-				&& this.product2.getIRR() >= this.MARR) {
+		else if ((product1.getIRR()).compareTo(MARR) >= 0 
+				&& (product2.getIRR()).compareTo(MARR) >= 0) {
 			
 			// 1. CALCULATE DIFFERENCE OF THE CASH FLOWS
 			
@@ -111,7 +114,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			String prodB;	// will contain which product is B
 			
 			// if product 1 has a higher initial investment, then set it's cash flow to B
-			if (this.product1.getCashflows()[0] <= this.product2.getCashflows()[0]) {
+			if (product1.getCashflows()[0] <= product2.getCashflows()[0]) {
 				B = product1.getCashflows();
 				A = product2.getCashflows();
 				prodB = "1";
@@ -135,11 +138,11 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			
 			// 3. COMPARE IRR TO MARR
 			// if IRR > MARR, select B
-			if (this.irrDiff > this.MARR) {
+			if (irrDiff.compareTo(MARR) > 0) {
 				this.correctAnswer = prodB;
 			}
 			// if IRR < MARR, select A
-			else if (this.irrDiff < this.MARR) {
+			else if (irrDiff.compareTo(MARR) < 0) {
 				this.correctAnswer = prodA;
 			}
 			// if IRR = MARR, select either A or B
@@ -194,9 +197,9 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			}
 		}
 		
-		// display combined IRR if the difference in cash flows
-		if (this.product1.getIRR() >= this.MARR 
-				&& this.product2.getIRR() >= this.MARR) {
+		// display combined IRR of the difference in cash flows
+		if ((product1.getIRR()).compareTo(MARR) >= 0 
+				&& (product2.getIRR()).compareTo(MARR) >= 0) {
 			results += "\n(The correct IRR of the differences between the " 
 					+ "cash flows of the two products is " 
 					+ ProductCalculations.displayIRR(this.irrDiff) + ")";
