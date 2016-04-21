@@ -2,13 +2,18 @@ package com.psu.ie302.game;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.math.MathUtils;
 
 /*
  * Contains methods for calculations related to the products class
  */
 public final class ProductCalculations {
 
+	private static List<Integer> pickedProductsList = new ArrayList<Integer>();
+	
 	/*
 	 * based off of:
 	 * http://vinitwagh.blogspot.com/2008/07/irrinternal-rate-of-return-function.html
@@ -67,12 +72,25 @@ public final class ProductCalculations {
 	}
 	
 	// randomly pick an index for a product from the product list
-	// TODO: make sure the same product is not picked more than once
-	// (Could keep list of products picked by indices and check that
-	//	an index is not in the list before returning it. Would have to
+	// (Keep list of products picked by indices and check that
+	//	an index is not in the list before returning it. Calling class should
 	//	refresh product index list when starting a new game.)
 	public static int randomlyPickProduct(int max) {
-		Random rand = new Random();
-		return (rand.nextInt(max + 1));
+		// randomly generate a product index
+		int productRandIndex = MathUtils.random(max);
+		
+		// If product was already picked, then try a new one until
+		// it generates one that wasn't picked yet.
+		// Add a new product index to the list of used ones.
+		while (pickedProductsList.contains(productRandIndex)) {
+			productRandIndex = MathUtils.random(max);
+		}
+		pickedProductsList.add(productRandIndex);
+		
+		return productRandIndex;
+	}
+	
+	public static void resetPickedProductsList() {
+		pickedProductsList.clear();
 	}
 }
