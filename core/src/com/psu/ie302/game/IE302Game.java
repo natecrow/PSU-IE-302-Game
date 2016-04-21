@@ -1,52 +1,38 @@
 package com.psu.ie302.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.io.BufferedReader;
 
-public class IE302Game extends ApplicationAdapter {
-	private SpriteBatch batch;
-	private BitmapFont font;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.psu.ie302.game.questions.Question;
+import com.psu.ie302.game.screens.MainMenuScreen;
+
+public class IE302Game extends Game {
+	
+	public static final int VIRTUAL_WIDTH = 800;
+	public static final int VIRTUAL_HEIGHT = 600;
+	
+	public Skin skin;
+	public Player player;
+	public Product[] products;
+	public Question[] questions;
+	public int qItr;
+	public BufferedReader reader;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		font = new BitmapFont();
-		font.setColor(Color.BLUE);
+		skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+		this.setScreen(new MainMenuScreen(this));
 	}
 	
 	@Override
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
+		skin.dispose();
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		batch.begin();
-		font.draw(batch, "Hello World", 200, 200);
-		batch.end();
-	}
-	
-	@Override
-	public void resize(int width, int height) {
-		
-	}
-	
-	@Override
-	public void pause() {
-		
-	}
-	
-	@Override
-	public void resume() {
-		
+		super.render();
 	}
 }
