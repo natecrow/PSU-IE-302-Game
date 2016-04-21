@@ -106,14 +106,26 @@ public class MainMenuScreen extends AbstractScreen {
 		// create four questions
 		ProductCalculations.resetPickedProductsList();
 		game.questions = new Question[4];
-		game.questions[0] = new QuestionSingleProduct(
-				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)]);
-		game.questions[1] = new QuestionInflationType1();
+//		game.questions[0] = new QuestionSingleProduct(
+//				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)]);
+//		game.questions[1] = new QuestionInflationType1();
+		game.questions[0] = new QuestionMultipleProducts(
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				3);
+		game.questions[1] = new QuestionMultipleProducts(
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				3);
 		game.questions[2] = new QuestionMultipleProducts(
 				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
 				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
 				3);
-		game.questions[3] = new QuestionInflationType2();
+		game.questions[3] = new QuestionMultipleProducts(
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				3);
+//		game.questions[3] = new QuestionInflationType2();
 		
 		// set question iterator
 		game.qItr = 0;

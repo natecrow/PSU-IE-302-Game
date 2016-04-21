@@ -49,13 +49,14 @@ public class QuestionInflationType1 extends QuestionInflation {
 		}
 	}
 	
-	public void setCorrectAnswer() {
+	public boolean setCorrectAnswer() {
 		// calculate future value if needed
 		if (futureValue) {
 			// currentAmt * (1+f)^n
 			this.correctAnswer = (currentAmt.multiply(
 							(f.add(BigDecimal.ONE)).pow(n))
 							).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			return true;
 		}
 		// otherwise calculate the past value
 		else {
@@ -64,6 +65,7 @@ public class QuestionInflationType1 extends QuestionInflation {
 							BigDecimal.ONE.divide(
 							(f.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))
 							).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			return true;
 		}
 	}
 	

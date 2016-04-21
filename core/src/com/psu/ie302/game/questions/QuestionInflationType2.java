@@ -63,7 +63,7 @@ public class QuestionInflationType2 extends QuestionInflation {
 	}
 
 	@Override
-	public void setCorrectAnswer() {
+	public boolean setCorrectAnswer() {
 		if (actualValue) {
 			// A*(1-((1+g)^n)*((1+i)^-n)) / (i-g)
 			// = ((A * (1 - (((1+g)^n) * (1/((1+i)^n))))) / (i-g))
@@ -74,6 +74,7 @@ public class QuestionInflationType2 extends QuestionInflation {
 					(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
 					(i.subtract(g)), MathContext.DECIMAL128)
 					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			return true;
 		} else {
 			// A*(1-((1+g')^n)*((1+i')^-n)) / (i'-g')
 			// = ((A * (1 - (((1+g')^n) * (1/((1+i')^n))))) / (i'-g'))
@@ -84,6 +85,7 @@ public class QuestionInflationType2 extends QuestionInflation {
 					(iDelta.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
 					(iDelta.subtract(gDelta)), MathContext.DECIMAL128)
 					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			return true;
 		}
 	}
 

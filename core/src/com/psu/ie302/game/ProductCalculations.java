@@ -28,8 +28,8 @@ public final class ProductCalculations {
 		int iter = 0;
 		while (iter++ < MAX_ITER) {
 			final BigDecimal x1 = BigDecimal.ONE.add(x);
-			BigDecimal fx = BigDecimal.ONE;
-			BigDecimal dfx = BigDecimal.ONE;
+			BigDecimal fx = BigDecimal.ZERO;
+			BigDecimal dfx = BigDecimal.ZERO;
 			for (int i = 0; i < cashflows.length; i++) {
 				final BigDecimal v = new BigDecimal(cashflows[i]);
 				final BigDecimal x1_i = x1.pow(i);
@@ -45,7 +45,6 @@ public final class ProductCalculations {
 			final BigDecimal new_x = x.subtract(fx.divide(dfx, MathContext.DECIMAL128));
 			//final double epsilon = Math.abs( new_x - x );
 			final BigDecimal epsilon = (new_x.subtract(x)).abs();
-		
 //			if (epsilon <= EXCEL_EPSILON) {
 //				if (x == 0.0 && Math.abs( new_x ) <= EXCEL_EPSILON) {
 //				return 0.0;

@@ -19,7 +19,8 @@ public abstract class Question {
 	}
 	
 	public abstract void setQuestionPrompt();
-	public abstract void setCorrectAnswer();
+	// return true if answer makes sense (i.e. IRR is not wack for products)
+	public abstract boolean setCorrectAnswer();
 	public abstract String checkAndDisplayAnswerResults(String ans, Player player);
 
 	
