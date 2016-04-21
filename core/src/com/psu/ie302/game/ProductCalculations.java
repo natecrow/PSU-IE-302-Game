@@ -13,6 +13,9 @@ public final class ProductCalculations {
 	 * based off of:
 	 * http://vinitwagh.blogspot.com/2008/07/irrinternal-rate-of-return-function.html
 	 */
+	/* TODO: SOMETIMES THE TWO POSSIBLE ANSWERS FOR THE COMBINED IRR ARE BOTH NEGATIVE,
+	 *	WHICH RESULTS IN AN EXTREMELY LARGE COMBINED IRR. I'M NOT SURE HOW TO FIX THIS.
+	 */
 	public static BigDecimal calculateIRR(final int[] cashflows) {
 		final int MAX_ITER = 20;
 		BigDecimal EXCEL_EPSILON = new BigDecimal("0.0000001");
