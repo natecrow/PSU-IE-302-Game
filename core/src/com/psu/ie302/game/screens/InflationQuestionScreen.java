@@ -42,7 +42,7 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create label for answer instructions
 		final Label labelAns = new Label(
-				"Type in your answer. Round it by 2 decimal places.",
+				"Type in your answer. Round it by 2 decimal places. No commas.",
 				game.skin);
 		labelAns.setWrap(true);
 		labelAns.setAlignment(Align.center);

@@ -1,5 +1,8 @@
 package com.psu.ie302.game.questions;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 import com.badlogic.gdx.math.MathUtils;
 
 /*
@@ -8,25 +11,25 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class QuestionInflationType2 extends QuestionInflation {
 
-	private int annualProfit;	// can be either current or actual
-	private boolean actualValue;// 1/true = actual; 0/false = constant
-	private float i;			// market interest rate
-	private float iDelta;		// inflation-free interest rate
-	private float g;			// growth rate
-	private float gDelta;		// inflation-free growth rate
-	private int n;				// number of years
+	private BigDecimal annualProfit;	// can be either current or actual
+	private BigDecimal i;				// market interest rate
+	private BigDecimal iDelta;			// inflation-free interest rate
+	private BigDecimal g;				// growth rate
+	private BigDecimal gDelta;			// inflation-free growth rate
+	private int n;						// number of years
+	private boolean actualValue;		// 1/true = actual; 0/false = constant
 	
 	
 	public QuestionInflationType2() {
 		super();
 		
-		this.annualProfit = MathUtils.random(5000, 10000000);
-		this.actualValue = MathUtils.randomBoolean();
-		this.i = MathUtils.random(0f, 0.1f);
-		this.iDelta = MathUtils.random(0f, 0.1f);
-		this.g = MathUtils.random(0f, 0.1f);
-		this.gDelta = MathUtils.random(0f, 0.1f);
+		this.annualProfit = new BigDecimal(MathUtils.random(5000, 10000000));
+		this.i = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.iDelta = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.g = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.gDelta = BigDecimal.valueOf(MathUtils.random(0.0f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		this.n = MathUtils.random(1, 20);
+		this.actualValue = MathUtils.randomBoolean();
 		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
@@ -44,28 +47,79 @@ public class QuestionInflationType2 extends QuestionInflation {
 			actualOrConstantDollars = "constant";
 		}
 		
-		this.questionPrompt = "The annual profit for a company is $" + this.annualProfit + ". "
-				+ "Given a market interest rate of " + this.i*100.0 + "%, "
-				+ "an inflation-free interest rate of " + this.iDelta*100.0 + "%, "
-				+ "a growth rate of " + this.g*100.0 + "%, "
-				+ "and an inflation-free growth rate of " + this.gDelta*100.0 + "%, "
+		String annualProfitStr = nf.format(annualProfit);
+		String iStr = i.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
+		String iDeltaStr = iDelta.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
+		String gStr = g.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
+		String gDeltaStr = gDelta.multiply(BigDecimal.valueOf(100)).setScale(2).toString();
+		
+		this.questionPrompt = "The annual profit for a company is $" + annualProfitStr + ". "
+				+ "Given a market interest rate of " + iStr + "%, "
+				+ "an inflation-free interest rate of " + iDeltaStr + "%, "
+				+ "a growth rate of " + gStr + "%, "
+				+ "and an inflation-free growth rate of " + gDeltaStr + "%, "
 				+ "how much will the company earn in " + actualOrConstantDollars 
-				+ " dollars after " + this.n + " years?";
+				+ " dollars after " + n + " years?";
 	}
 
 	@Override
 	public void setCorrectAnswer() {
 		if (actualValue) {
-			this.correctAnswer = String.valueOf( this.annualProfit 
-					* (1 - (Math.pow(1 + this.g, n) 
-					* Math.pow(1 + this.i, (-n))))
-					/ (this.i - this.g) );
+			// A*(1-((1+g)^n)*((1+i)^-n)) / (i-g)
+			// = ((A * (1 - (((1+g)^n) * (1/((1+i)^n))))) / (i-g))
+			this.correctAnswer = ((annualProfit.multiply(
+					(BigDecimal.ONE.subtract(
+					((g.add(BigDecimal.ONE)).pow(n)).multiply(
+					(BigDecimal.ONE.divide(
+					(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
+					(i.subtract(g)), MathContext.DECIMAL128)
+					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+					
+//			this.correctAnswer = (annualProfit 
+//					* (1 - (Math.pow(1 + g, n) 
+//					* Math.pow(1 + i, (-n))))
+//					/ (i - g));
 		} else {
-			this.correctAnswer = String.valueOf( this.annualProfit 
-					* (1 - (Math.pow(1 + this.gDelta, n) 
-					* Math.pow(1 + this.iDelta, (-n))))
-					/ (this.iDelta - this.gDelta) );		
+			// A*(1-((1+g')^n)*((1+i')^-n)) / (i'-g')
+			// = ((A * (1 - (((1+g')^n) * (1/((1+i')^n))))) / (i'-g'))
+			this.correctAnswer = ((annualProfit.multiply(
+					(BigDecimal.ONE.subtract(
+					((gDelta.add(BigDecimal.ONE)).pow(n)).multiply(
+					(BigDecimal.ONE.divide(
+					(iDelta.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide(
+					(iDelta.subtract(gDelta)), MathContext.DECIMAL128)
+					).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+//			this.correctAnswer = (annualProfit 
+//					* (1 - (Math.pow(1 + gDelta, n) 
+//					* Math.pow(1 + iDelta, (-n))))
+//					/ (iDelta - gDelta));		
 		}
 	}
 
 }
+//
+//// ((1+g)^n)
+//((g.add(BigDecimal.ONE)).pow(n))
+//
+//// ((1+i)^(-n) = (1/((1+i)^n))
+//(BigDecimal.ONE.divide(
+//		(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))
+//
+//// (((1+g)^n) * (1/((1+i)^n)))
+//((g.add(BigDecimal.ONE)).pow(n)).multiply((BigDecimal.ONE.divide(
+//		(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128)))
+//
+//// (1 - (((1+g)^n) * (1/((1+i)^n))))
+//(BigDecimal.ONE.subtract(((g.add(BigDecimal.ONE)).pow(n)).multiply((BigDecimal.ONE.divide(
+//		(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128)))))
+//
+//// (A * (1 - (((1+g)^n) * (1/((1+i)^n)))))
+//(annualProfit.multiply((BigDecimal.ONE.subtract(((g.add(BigDecimal.ONE)).pow(n)).multiply((BigDecimal.ONE.divide(
+//		(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128)))))))
+//
+//// (i-g)
+//(i.subtract(g))
+//
+//// ((A * (1 - (((1+g)^n) * (1/((1+i)^n))))) / (i-g))
+//((annualProfit.multiply((BigDecimal.ONE.subtract(((g.add(BigDecimal.ONE)).pow(n)).multiply((BigDecimal.ONE.divide(
+//		(i.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))))))).divide((i.subtract(g)))).setScale(2, BigDecimal.ROUND_HALF_UP).toString();

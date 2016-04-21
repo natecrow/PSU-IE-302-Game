@@ -24,7 +24,6 @@ public class QuestionInflationType1 extends QuestionInflation {
 		// randomly generate the numbers
 		this.currentAmt = new BigDecimal(MathUtils.random(50, 100000));
 		this.f = BigDecimal.valueOf(MathUtils.random(-0.05f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
-		System.out.println(f.toString());
 		this.n = MathUtils.random(1, 50);
 		this.futureValue = MathUtils.randomBoolean();
 		
@@ -54,14 +53,17 @@ public class QuestionInflationType1 extends QuestionInflation {
 		// calculate future value if needed
 		if (futureValue) {
 			// currentAmt * (1+f)^n
-			this.correctAnswer =
-					(currentAmt.multiply((f.add(BigDecimal.ONE)).pow(n))).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			this.correctAnswer = (currentAmt.multiply(
+							(f.add(BigDecimal.ONE)).pow(n))
+							).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
 		}
 		// otherwise calculate the past value
 		else {
 			// currentAmt * (1+f)^(-n) = currentAmt * (1/(f+1)^n)
-			this.correctAnswer =
-					(currentAmt.multiply(BigDecimal.ONE.divide((f.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+			this.correctAnswer = (currentAmt.multiply(
+							BigDecimal.ONE.divide(
+							(f.add(BigDecimal.ONE)).pow(n), MathContext.DECIMAL128))
+							).setScale(2, BigDecimal.ROUND_HALF_UP).toString();
 		}
 	}
 	

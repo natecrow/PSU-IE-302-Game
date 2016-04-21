@@ -1,5 +1,7 @@
 package com.psu.ie302.game.questions;
 
+import java.math.BigDecimal;
+
 import com.psu.ie302.game.Player;
 
 public abstract class QuestionInflation extends Question {
@@ -8,9 +10,9 @@ public abstract class QuestionInflation extends Question {
 	public String checkAndDisplayAnswerResults(String ans, Player player) {
 		String result = "";
 		
-		// if answer is within 1 of the correct answer, then award player
-		if ((Double.parseDouble(ans) <= Double.parseDouble(this.correctAnswer) + 1) 
-				&& (Double.parseDouble(ans) >= Double.parseDouble(this.correctAnswer) - 1)) {
+		BigDecimal playerAns = new BigDecimal(ans);
+		BigDecimal correctAns = new BigDecimal(this.correctAnswer);
+		if (playerAns.compareTo(correctAns) == 0) {
 			result += "CORRECT! ";
 			player.addScore(1);
 		} else {
