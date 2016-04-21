@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -104,13 +105,15 @@ public class MainMenuScreen extends AbstractScreen {
 		game.products = productsList.toArray(this.game.products);
 		
 		// create four questions
+		ProductCalculations.resetPickedProductsList();
 		game.questions = new Question[4];
 		game.questions[0] = new QuestionSingleProduct(
-				this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)]);
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				MathUtils.random(2, 4));
 		game.questions[1] = new QuestionInflationType1();
 		game.questions[2] = new QuestionMultipleProducts(
-				this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
-				this.game.products[ProductCalculations.randomlyPickProduct(this.game.products.length - 1)],
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
+				game.products[ProductCalculations.randomlyPickProduct(game.products.length - 1)],
 				3);
 		game.questions[3] = new QuestionInflationType2();
 		

@@ -2,16 +2,24 @@ package com.psu.ie302.game;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.math.MathUtils;
 
 /*
  * Contains methods for calculations related to the products class
  */
 public final class ProductCalculations {
 
+	private static List<Integer> pickedProductsList = new ArrayList<Integer>();
+	
 	/*
 	 * based off of:
 	 * http://vinitwagh.blogspot.com/2008/07/irrinternal-rate-of-return-function.html
+	 */
+	/* TODO: SOMETIMES THE TWO POSSIBLE ANSWERS FOR THE COMBINED IRR ARE BOTH NEGATIVE,
+	 *	WHICH RESULTS IN AN EXTREMELY LARGE COMBINED IRR. I'M NOT SURE HOW TO FIX THIS.
 	 */
 	public static BigDecimal calculateIRR(final int[] cashflows) {
 		final int MAX_ITER = 20;
@@ -20,8 +28,8 @@ public final class ProductCalculations {
 		int iter = 0;
 		while (iter++ < MAX_ITER) {
 			final BigDecimal x1 = BigDecimal.ONE.add(x);
-			BigDecimal fx = BigDecimal.ONE;
-			BigDecimal dfx = BigDecimal.ONE;
+			BigDecimal fx = BigDecimal.ZERO;
+			BigDecimal dfx = BigDecimal.ZERO;
 			for (int i = 0; i < cashflows.length; i++) {
 				final BigDecimal v = new BigDecimal(cashflows[i]);
 				final BigDecimal x1_i = x1.pow(i);
@@ -37,7 +45,6 @@ public final class ProductCalculations {
 			final BigDecimal new_x = x.subtract(fx.divide(dfx, MathContext.DECIMAL128));
 			//final double epsilon = Math.abs( new_x - x );
 			final BigDecimal epsilon = (new_x.subtract(x)).abs();
-		
 //			if (epsilon <= EXCEL_EPSILON) {
 //				if (x == 0.0 && Math.abs( new_x ) <= EXCEL_EPSILON) {
 //				return 0.0;
@@ -64,12 +71,25 @@ public final class ProductCalculations {
 	}
 	
 	// randomly pick an index for a product from the product list
-	// TODO: make sure the same product is not picked more than once
-	// (Could keep list of products picked by indices and check that
-	//	an index is not in the list before returning it. Would have to
+	// (Keep list of products picked by indices and check that
+	//	an index is not in the list before returning it. Calling class should
 	//	refresh product index list when starting a new game.)
 	public static int randomlyPickProduct(int max) {
-		Random rand = new Random();
-		return (rand.nextInt(max + 1));
+		// randomly generate a product index
+		int productRandIndex = MathUtils.random(max);
+		
+		// If product was already picked, then try a new one until
+		// it generates one that wasn't picked yet.
+		// Add a new product index to the list of used ones.
+		while (pickedProductsList.contains(productRandIndex)) {
+			productRandIndex = MathUtils.random(max);
+		}
+		pickedProductsList.add(productRandIndex);
+		
+		return productRandIndex;
+	}
+	
+	public static void resetPickedProductsList() {
+		pickedProductsList.clear();
 	}
 }

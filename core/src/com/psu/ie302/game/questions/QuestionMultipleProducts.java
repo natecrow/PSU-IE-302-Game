@@ -28,10 +28,17 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		
 		this.MARR = BigDecimal.valueOf(MathUtils.random(0.20f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
+		// if answer doesn't make sense, then recalculate cash flows and IRRs
+		while (!this.setCorrectAnswer()) {
+			this.product1.generateCashflows(cashflowYears);
+			this.product2.generateCashflows(cashflowYears);
+			
+			this.product1.setIRR(ProductCalculations.calculateIRR(prod1.getCashflows()));
+			this.product2.setIRR(ProductCalculations.calculateIRR(prod2.getCashflows()));
+		}
+		
 		this.setQuestionPrompt();
 		this.setQuestionPrompt2();
-		
-		this.setCorrectAnswer();
 	}
 	
 	@Override
@@ -79,24 +86,33 @@ public class QuestionMultipleProducts extends QuestionProducts {
 	}
 
 	@Override
-	public void setCorrectAnswer() {
+	public boolean setCorrectAnswer() {
+		// if either irr < -1000% or irr > 1000%, then reject it
+		// (remember irrDiff is a percentage, so
+		//	i.e. 1.0 = 100%, 10.0 = 1000%, etc.)
+		if ((product1.getIRR().abs()).compareTo(BigDecimal.valueOf(10)) >= 0
+				|| (product2.getIRR().abs()).compareTo(BigDecimal.valueOf(10)) >= 0) {
+			return false;
+		}
 		
 		// case 1: both IRRs < MARR
 		//	===> reject both products
-		
 		if ((product1.getIRR()).compareTo(MARR) < 0 
 				&& (product2.getIRR()).compareTo(MARR) < 0) {
 			this.correctAnswer = "0";
+			return true;
 		}
 		// case 2: one IRR > MARR, other IRR < MARR
 		//	===> accept the product with IRR > MARR
 		else if ((product1.getIRR()).compareTo(MARR) > 0 
 				&& (product2.getIRR()).compareTo(MARR) < 0) {
 			this.correctAnswer = "1";
+			return true;
 		}
 		else if ((product1.getIRR()).compareTo(MARR) < 0 
 				&& (product2.getIRR()).compareTo(MARR) > 0) {
 			this.correctAnswer = "2";
+			return true;
 		}
 		// case 3: both IRRs > MARR
 		//	===> use Incremental-investment analysis
@@ -136,20 +152,31 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// 2. CALCULATE THE IRR OF THE CASH FLOW DIFFERENCE
 			irrDiff = ProductCalculations.calculateIRR(cashflowDiff);
 			
+			// if irrDiff < -1000% or irrDiff > 1000%, then reject it
+			// (remember irrDiff is a percentage, so
+			//	i.e. 1.0 = 100%, 10.0 = 1000%, etc.)
+			if ((irrDiff.abs()).compareTo(BigDecimal.valueOf(10)) >= 0) {
+				return false;
+			}
+			
 			// 3. COMPARE IRR TO MARR
 			// if IRR > MARR, select B
 			if (irrDiff.compareTo(MARR) > 0) {
 				this.correctAnswer = prodB;
+				return true;
 			}
 			// if IRR < MARR, select A
 			else if (irrDiff.compareTo(MARR) < 0) {
 				this.correctAnswer = prodA;
+				return true;
 			}
 			// if IRR = MARR, select either A or B
 			else {
 				this.correctAnswer = "3";
+				return true;
 			}
 		}
+		return false;
 	}
 
 	@Override
@@ -181,7 +208,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// ... and player did not invest, then player doesn't win anything
 			else {
 				results += "Oops! You probably would have " 
-						+ "gained profit if had you invested in that product.";
+						+ "gained profit if had you invested.";
 			}
 			
 			results += "\nThe best investment was: ";

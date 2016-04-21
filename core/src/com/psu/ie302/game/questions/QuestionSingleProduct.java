@@ -18,16 +18,21 @@ public class QuestionSingleProduct extends QuestionProducts {
 		return product;
 	}
 
-	public QuestionSingleProduct(Product prod) {
+	public QuestionSingleProduct(Product prod, int numOfYears) {
 		super();
 		
 		this.product = prod;
-		this.product.generateCashflows(3);
+		this.product.generateCashflows(numOfYears);
 		this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
 		this.MARR = BigDecimal.valueOf(MathUtils.random(0.5f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
+		// if answer doesn't make sense, then recalculate cash flows and IRRs
+		while (!this.setCorrectAnswer()) {
+			this.product.generateCashflows(numOfYears);
+			this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
+		}
+		
 		this.setQuestionPrompt();
-		this.setCorrectAnswer();
 	}
 	
 	@Override
@@ -48,11 +53,13 @@ public class QuestionSingleProduct extends QuestionProducts {
 	}
 	
 	@Override
-	public void setCorrectAnswer() {
+	public boolean setCorrectAnswer() {
 		if ((product.getIRR()).compareTo(MARR) >= 0) {
 			this.correctAnswer = "Y";
+			return true;
 		} else  {
 			this.correctAnswer = "N";
+			return true;
 		}
 	}
 	

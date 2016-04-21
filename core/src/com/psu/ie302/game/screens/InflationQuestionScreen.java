@@ -49,16 +49,14 @@ public class InflationQuestionScreen extends AbstractScreen {
 		
 		// create sub-table to hold input and button
 		final Table tableSubAns = new Table();
-		//tableSubAns.setDebug(true);
 		
 		// create text field input for answer
 		final TextField textFieldAns = new TextField("", game.skin);
 		
-		// TODO: accept negative numbers too
 		// text field will only accept integers or decimal point numbers
 		textFieldAns.setTextFieldFilter(new TextFieldFilter() {
 			private char[] accepted = new char[]
-		    		{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
+		    		{'-', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'};
 			@Override
 			public boolean acceptChar(TextField textField, char c) {
 			    for (char a : accepted) {
@@ -67,6 +65,12 @@ public class InflationQuestionScreen extends AbstractScreen {
 			    		// it if there is another period already in the text field
 			    		if (c == '.') {
 			    			if (textField.getText().contains(Character.toString('.'))) {
+			    				return false;
+			    			}
+			    		}
+			    		// only accept '-' sign if it is the first character entered
+			    		if (c == '-') {
+			    			if (!textField.getText().isEmpty()) {
 			    				return false;
 			    			}
 			    		}
@@ -95,17 +99,19 @@ public class InflationQuestionScreen extends AbstractScreen {
 		// debug options
 //		tableQuestion.setDebug(true);
 //		tableAns.setDebug(true);
+//		tableSubAns.setDebug(true);
 		
 		
 		// When enter button is clicked, check the answer in the text field 
 		// with the correct answer and display the results.
 		// Then, increment to the next question and switch to the
 		// corresponding screen.
-		// TODO: make it so user can hit the 'Enter' key too
 		btnAns.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor btnAns) {
-				if (!(textFieldAns.getText().isEmpty())) {
+				if ( !(textFieldAns.getText().isEmpty())
+						&& !(textFieldAns.getText().equals("-"))
+						&& !(textFieldAns.getText().equals(".")) ) {
 					String resultText = 
 							game.questions[game.qItr].checkAndDisplayAnswerResults(
 									textFieldAns.getText(),
