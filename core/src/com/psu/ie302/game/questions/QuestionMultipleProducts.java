@@ -26,7 +26,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 		this.product1.setIRR(ProductCalculations.calculateIRR(prod1.getCashflows()));
 		this.product2.setIRR(ProductCalculations.calculateIRR(prod2.getCashflows()));
 		
-		this.MARR = BigDecimal.valueOf(MathUtils.random(0.01f)).setScale(4, BigDecimal.ROUND_HALF_UP);
+		this.MARR = BigDecimal.valueOf(MathUtils.random(0.20f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
 		// if answer doesn't make sense, then recalculate cash flows and IRRs
 		while (!this.setCorrectAnswer()) {
@@ -87,6 +87,14 @@ public class QuestionMultipleProducts extends QuestionProducts {
 
 	@Override
 	public boolean setCorrectAnswer() {
+		// if either irr < -1000% or irr > 1000%, then reject it
+		// (remember irrDiff is a percentage, so
+		//	i.e. 1.0 = 100%, 10.0 = 1000%, etc.)
+		if ((product1.getIRR().abs()).compareTo(BigDecimal.valueOf(10)) >= 0
+				|| (product2.getIRR().abs()).compareTo(BigDecimal.valueOf(10)) >= 0) {
+			return false;
+		}
+		
 		// case 1: both IRRs < MARR
 		//	===> reject both products
 		if ((product1.getIRR()).compareTo(MARR) < 0 
@@ -200,7 +208,7 @@ public class QuestionMultipleProducts extends QuestionProducts {
 			// ... and player did not invest, then player doesn't win anything
 			else {
 				results += "Oops! You probably would have " 
-						+ "gained profit if had you invested in that product.";
+						+ "gained profit if had you invested.";
 			}
 			
 			results += "\nThe best investment was: ";

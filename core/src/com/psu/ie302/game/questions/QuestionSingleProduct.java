@@ -22,7 +22,7 @@ public class QuestionSingleProduct extends QuestionProducts {
 		super();
 		
 		this.product = prod;
-		this.product.generateCashflows(3);
+		this.product.generateCashflows(numOfYears);
 		this.product.setIRR(ProductCalculations.calculateIRR(prod.getCashflows()));
 		this.MARR = BigDecimal.valueOf(MathUtils.random(0.5f)).setScale(4, BigDecimal.ROUND_HALF_UP);
 		
