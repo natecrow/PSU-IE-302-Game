@@ -54,6 +54,13 @@ public class QuestionSingleProduct extends QuestionProducts {
 	
 	@Override
 	public boolean setCorrectAnswer() {
+		// if irr < -1000% or irr > 1000%, then reject it
+		// (remember irrDiff is a percentage, so
+		//	i.e. 1.0 = 100%, 10.0 = 1000%, etc.)
+		if ((product.getIRR().abs()).compareTo(BigDecimal.valueOf(10)) >= 0) {
+			return false;
+		}
+		
 		if ((product.getIRR()).compareTo(MARR) >= 0) {
 			this.correctAnswer = "Y";
 			return true;
