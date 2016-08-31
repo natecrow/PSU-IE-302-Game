@@ -1,3 +1,2 @@
 # PSU-IE-302-Game
-Video game based off of the television show Shark Tank to help teach concepts for Penn State's IE 302 Engineering Economy course.
-This project is my team's capstone design project for the course IE 480W.
+Educational video game based off of the television show Shark Tank to help students put into practice concepts from Penn State's IE 302 Engineering Economy course. This game is for my team's capstone design project for the course IE 480W.
