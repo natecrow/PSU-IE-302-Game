@@ -3,8 +3,6 @@ package com.psu.ie302.game.questions;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import com.badlogic.gdx.math.MathUtils;
-
 /*
  * Question for asking player to calculate a past or future value given
  * a current amount of money, an inflation rate per year, and no. of years
@@ -18,14 +16,14 @@ public class QuestionInflationType1 extends QuestionInflation {
 	private boolean futureValue;
 	
 	
-	public QuestionInflationType1() {
+	public QuestionInflationType1(BigDecimal currentAmount, BigDecimal inflationRate, int yearsOfInflation, boolean calculateFutureValue) {
 		super();
 		
 		// randomly generate the numbers
-		this.currentAmt = new BigDecimal(MathUtils.random(50, 100000));
-		this.f = BigDecimal.valueOf(MathUtils.random(-0.05f, 0.1f)).setScale(4, BigDecimal.ROUND_HALF_UP);
-		this.n = MathUtils.random(1, 50);
-		this.futureValue = MathUtils.randomBoolean();
+		this.currentAmt = currentAmount;
+		this.f = inflationRate;
+		this.n = yearsOfInflation;
+		this.futureValue = calculateFutureValue;
 		
 		this.setQuestionPrompt();
 		this.setCorrectAnswer();
