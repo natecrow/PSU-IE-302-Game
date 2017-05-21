@@ -45,12 +45,19 @@ public class QuestionInflationType1Test {
 	}
 
 	@Test
-	public void whenPlayerAnswerIsCorrect_thenCheckAndDisplayAnswerResultsShouldReturnCorrect() {
+	public void checkAndDisplayAnswerResults_WhenPlayerAnswerIsCorrect_ThenTellThemTheyAreCorrectAndAddToTheirScore() {
 		Player mockedPlayer = mock(Player.class);
 		
 		assertEquals("CORRECT! ", question.checkAndDisplayAnswerResults("1218.99", mockedPlayer));
 		
 		verify(mockedPlayer).addScore(1);
+	}
+	
+	@Test
+	public void checkAndDisplayAnswerResults_WhenPlayerAnswerIsWrong_ThenTellThemTheyAreWrongAndDisplayCorrectAnswer() {
+		Player mockedPlayer = mock(Player.class);
+		
+		assertEquals("WRONG!\nThe correct dollar amount is: $1,218.99", question.checkAndDisplayAnswerResults("1219.00", mockedPlayer));
 	}
 
 }
