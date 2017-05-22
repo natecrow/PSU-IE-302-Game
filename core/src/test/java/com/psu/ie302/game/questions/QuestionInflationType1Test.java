@@ -20,22 +20,46 @@ import com.psu.ie302.game.Player;
 @PrepareForTest({ Player.class })
 public class QuestionInflationType1Test {
 
-	static QuestionInflationType1 question;
+	//@formatter:off
+	
+	static QuestionInflationType1 questionForFutureValue;
+	static QuestionInflationType1 questionForPastValue;
 
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		//@formatter:off
-		question = new QuestionInflationType1(
+		questionForFutureValue = new QuestionInflationType1(
 				new BigDecimal(1000),
 				BigDecimal.valueOf(0.02f).setScale(4, BigDecimal.ROUND_HALF_UP),
 				10,
-				true);
+				true
+			);
+		
+		questionForPastValue = new QuestionInflationType1(
+				new BigDecimal(1000),
+				BigDecimal.valueOf(-0.05f).setScale(4, BigDecimal.ROUND_HALF_UP),
+				10,
+				false
+			);
 	}
 	
 	@Test
-	@Ignore
-	public void testSetQuestionPrompt() {
-		fail("Not yet implemented");
+	public void setQuestionPrompt_WhenFutureValueIsToBeCalculated_ThenDisplayPromptForFutureValue() {
+		questionForFutureValue.setQuestionPrompt();
+		
+		assertEquals(
+				"If I have $1,000.00 today, how much will this amount be in actual dollars after 10 years of inflation at a rate of 2.00% per year?",
+				questionForFutureValue.questionPrompt
+			);
+	}
+	
+	@Test
+	public void setQuestionPrompt_WhenPastValueIsToBeCalculated_ThenDisplayPromptForPastValue() {
+		questionForPastValue.setQuestionPrompt();
+		
+		assertEquals(
+				"If I have $1,000.00 today, how much was this amount in constant dollars 10 years ago with an inflation rate of -5.00% per year?",
+				questionForPastValue.questionPrompt
+			);
 	}
 
 	@Test
@@ -48,7 +72,7 @@ public class QuestionInflationType1Test {
 	public void checkAndDisplayAnswerResults_WhenPlayerAnswerIsCorrect_ThenTellThemTheyAreCorrectAndAddToTheirScore() {
 		Player mockedPlayer = mock(Player.class);
 		
-		assertEquals("CORRECT! ", question.checkAndDisplayAnswerResults("1218.99", mockedPlayer));
+		assertEquals("CORRECT! ", questionForFutureValue.checkAndDisplayAnswerResults("1218.99", mockedPlayer));
 		
 		verify(mockedPlayer).addScore(1);
 	}
@@ -57,7 +81,7 @@ public class QuestionInflationType1Test {
 	public void checkAndDisplayAnswerResults_WhenPlayerAnswerIsWrong_ThenTellThemTheyAreWrongAndDisplayCorrectAnswer() {
 		Player mockedPlayer = mock(Player.class);
 		
-		assertEquals("WRONG!\nThe correct dollar amount is: $1,218.99", question.checkAndDisplayAnswerResults("1219.00", mockedPlayer));
+		assertEquals("WRONG!\nThe correct dollar amount is: $1,218.99", questionForFutureValue.checkAndDisplayAnswerResults("1219.00", mockedPlayer));
 	}
 
 }
